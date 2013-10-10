@@ -29,7 +29,7 @@
 #include "memory.h"
 #include "video.h"
 
-#include "../main.h"
+#include "../frontend/windows/main.h"
 
 // 3 = jump relative (1 byte)
 const int debug_command_param_size[256] = {

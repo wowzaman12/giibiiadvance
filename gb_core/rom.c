@@ -26,8 +26,8 @@
 
 #include "../build_options.h"
 
-#include "../main.h"
-#include "../config.h"
+#include "../frontend/windows/main.h"
+#include "../frontend/windows/config.h"
 
 #include "gameboy.h"
 #include "rom.h"

@@ -32,9 +32,9 @@
 #include "save.h"
 #include "rom.h"
 #include "sound.h"
-#include "../save_png.h"
-#include "../gui_main.h"
-#include "../gui_mainloop.h"
+#include "../frontend/windows/save_png.h"
+#include "../frontend/windows/gui_main.h"
+#include "../frontend/windows/gui_mainloop.h"
 
 static s32 clocks;
 

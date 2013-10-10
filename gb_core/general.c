@@ -30,8 +30,8 @@
 #include "video.h"
 #include "gb_main.h"
 
-#include "../main.h"
-#include "../config.h"
+#include "../frontend/windows/main.h"
+#include "../frontend/windows/config.h"
 
 _GB_CONTEXT_ GameBoy;
 

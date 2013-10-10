@@ -20,7 +20,7 @@
 #define __GAMEBOY__
 
 #include <stdbool.h>
-#include "../main.h"
+#include "../frontend/windows/main.h"
 
 //------------------------------------------------------------------------------
 //--                                                                          --

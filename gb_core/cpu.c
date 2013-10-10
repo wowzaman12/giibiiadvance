@@ -29,7 +29,7 @@
 #include "sgb.h"
 #include "serial.h"
 
-#include "../main.h"
+#include "../frontend/windows/main.h"
 #include "gb_main.h"
 
 extern _GB_CONTEXT_ GameBoy;

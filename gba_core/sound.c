@@ -27,8 +27,8 @@
 #include "sound.h"
 #include "cpu.h"
 
-#include "../main.h"
-#include "../config.h"
+#include "../frontend/windows/main.h"
+#include "../frontend/windows/config.h"
 
 #define GBA_BUFFER_SIZE (16384) //Yeah... quite a lot, but it works fine this way.
                                 //The bigger, the less possibilities to underflow,

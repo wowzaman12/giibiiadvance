@@ -30,8 +30,8 @@
 #include "serial.h"
 #include "debug.h"
 
-#include "../main.h"
-#include "../config.h"
+#include "../frontend/windows/main.h"
+#include "../frontend/windows/config.h"
 
 extern _GB_CONTEXT_ GameBoy;
 
@@ -108,7 +108,7 @@ _GB_PRINTER_ GB_Printer;
 
 int printer_file_number = 0;
 
-#include "../save_png.h"
+#include "../png/save_png.h"
 void GB_PrinterPrint(void)
 {
 	char * endbuffer = malloc(20 * 18 * 16);

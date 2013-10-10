@@ -30,9 +30,9 @@
 #include "sound.h"
 #include "sgb.h"
 
-#include "../save_png.h"
-#include "../gui_main.h"
-#include "../main.h"
+#include "../png/save_png.h"
+#include "../frontend/windows/gui_main.h"
+#include "../frontend/windows/main.h"
 #include "gb_main.h"
 
 extern _GB_CONTEXT_ GameBoy;
