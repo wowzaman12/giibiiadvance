@@ -32,7 +32,6 @@
 #include "../../gba_core/video.h"
 #include "../../gba_core/memory.h"
 #include "../../gba_core/sound.h"
-#include "../../gb_core/sound.h"
 
 //--------------------------------------------------
 char console_buffer[5000];
@@ -352,11 +351,6 @@ static	float			sinPos = 0.f;
         if(RUNNING == RUN_GBA)
         {
             GBA_SoundCallback(pSoundBuffer,bufferLen);
-            return;
-        }
-        else if(RUNNING == RUN_GB)
-        {
-            GB_SoundCallback(pSoundBuffer,bufferLen);
             return;
         }
     }

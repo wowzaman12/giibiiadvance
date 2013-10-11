@@ -26,12 +26,6 @@
 #include "gui_config.h"
 #include "main.h"
 #include "config.h"
-#include "../../gb_core/gb_main.h"
-#include "../../gb_core/gameboy.h"
-#include "../../gb_core/serial.h"
-#include "../../gb_core/video.h"
-
-extern _GB_CONTEXT_ GameBoy;
 
 //---------------------------------------------------
 
@@ -54,12 +48,6 @@ static HWND hCtrlSndBufLen;
 static HWND hCheckChn[6];
 static HWND hScrollVolume;
 static HWND hCheckSndMute;
-
-//Gameboy
-static HWND hCtrlGBHardType;
-static HWND hCtrlGBSerialDevice;
-static HWND hCheckGBBlur;
-static HWND hCheckGBRealColors;
 
 //Gameboy Advance
 
@@ -126,20 +114,6 @@ void GLWindow_ConfigExit(void)
 
     //EmulatorConfig.snd_mute = IS_CHECKED(hCheckSndMute); //done by GLWindow_SetMute
     GLWindow_SetMute(IS_CHECKED(hCheckSndMute));
-
-    //GAMEBOY
-    EmulatorConfig.hardware_type = GET_SELECTION(hCtrlGBHardType) - 1;
-
-    EmulatorConfig.serial_device = GET_SELECTION(hCtrlGBSerialDevice);
-    GB_SerialPlug(EmulatorConfig.serial_device);
-
-    EmulatorConfig.enableblur = IS_CHECKED(hCheckGBBlur);
-    GB_EnableBlur(EmulatorConfig.enableblur);
-
-    EmulatorConfig.realcolors = IS_CHECKED(hCheckGBRealColors);
-    GB_EnableRealColors(EmulatorConfig.realcolors);
-
-    //gb palette is changed in WM_LBUTTONDOWN
 
     //GAMEBOY ADVANCE
 
@@ -321,11 +295,6 @@ void GLWindow_ConfigurationCreateDialog(HWND hWnd, HFONT hFont)
         100,212, 70,160,  hWnd, (HMENU)0, hInstance,NULL);
     SendMessage(hCtrlGBHardType, WM_SETFONT, (WPARAM)hFont, MAKELPARAM(1, 0));
     SendMessage(hCtrlGBHardType, CB_ADDSTRING, 0, (LPARAM)"Auto");
-    SendMessage(hCtrlGBHardType, CB_ADDSTRING, 0, (LPARAM)"GB");
-    SendMessage(hCtrlGBHardType, CB_ADDSTRING, 0, (LPARAM)"GBP");
-    SendMessage(hCtrlGBHardType, CB_ADDSTRING, 0, (LPARAM)"SGB");
-    SendMessage(hCtrlGBHardType, CB_ADDSTRING, 0, (LPARAM)"SGB2");
-    SendMessage(hCtrlGBHardType, CB_ADDSTRING, 0, (LPARAM)"GBC");
     SendMessage(hCtrlGBHardType, CB_ADDSTRING, 0, (LPARAM)"GBA");
     SendMessage(hCtrlGBHardType, CB_SETCURSEL, (WPARAM)EmulatorConfig.hardware_type+1, 0);
     //-------------------

@@ -32,10 +32,11 @@
 #include "save.h"
 #include "rom.h"
 #include "sound.h"
-#include "../frontend/windows/save_png.h"
+#include "../png/save_png.h"
+#ifdef WIN32
 #include "../frontend/windows/gui_main.h"
 #include "../frontend/windows/gui_mainloop.h"
-
+#endif
 static s32 clocks;
 
 static int inited = 0;

@@ -32,10 +32,6 @@
 #include "../../gba_core/save.h"
 #include "../../gba_core/bios.h"
 #include "../../gba_core/sound.h"
-#include "../../gb_core/sound.h"
-#include "../../gb_core/gb_main.h"
-#include "../../gb_core/general.h"
-#include "../../gb_core/gameboy.h"
 #include "gui_main.h"
 #include "gui_config.h"
 #include "../../png/save_png.h"
@@ -48,8 +44,6 @@
 #include "gui_text_windows.h"
 
 //---------------------------------------------------------------------------
-
-extern _GB_CONTEXT_ GameBoy;
 
 int ZOOM;
 
@@ -216,9 +210,8 @@ char * GLWindow_OpenRom(HWND hwnd)
     // use the contents of szFile to initialize itself.
     ofn.lpstrFile[0] = '\0';
     ofn.nMaxFile = sizeof(szFile);
-    ofn.lpstrFilter = "All Supported Roms\0*.GBA;*.AGB;*.BIN;*.GBC;*.GB;*.CGB;*.SGB\0"
+    ofn.lpstrFilter = "All Supported Roms\0*.GBA\0"
                       "GBA Roms (*.GBA;*.AGB;*.BIN)\0*.GBA;*.AGB;*.BIN\0"
-                      "GBC/GB Roms (*.GBC;*.GB;*.CGB;*.SGB)\0*.GBC;*.GB;*.CGB;*.SGB\0"
                       "All Files\0*.*\0";
     ofn.nFilterIndex = 1;
     ofn.lpstrFileTitle = NULL;
@@ -272,14 +265,9 @@ int Get_Rom_Type(char * name)
     if(strcmp(extension,"GBA") == 0) return RUN_GBA;
     if(strcmp(extension,"AGB") == 0) return RUN_GBA;
     if(strcmp(extension,"BIN") == 0) return RUN_GBA;
-    if(strcmp(extension,"GBC") == 0) return RUN_GB;
-    if(strcmp(extension,"CGB") == 0) return RUN_GB;
-    if(strcmp(extension,"SGB") == 0) return RUN_GB;
-
     extension[0] = extension[1];
     extension[1] = extension[2];
     extension[2] = '\0';
-    if(strcmp(extension,"GB") == 0) return RUN_GB;
 
     return RUN_NONE;
 }
@@ -290,13 +278,12 @@ void GLWindow_UnloadRom(int save)
     if(RUNNING != RUN_NONE)
     {
         if(RUNNING == RUN_GBA) GBA_EndRom(save);
-        else if(RUNNING == RUN_GB) GB_End(save);
-
+		{
         GLWindow_ClearPause();
         GLWindow_MenuEnableROMCommands(0);
 
         RUNNING = RUN_NONE;
-
+		}
         //---------------------------
 
         if(EmulatorConfig.auto_close_debugger)

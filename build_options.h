@@ -56,20 +56,6 @@
 #define BOOT_ROM_FOLDER "bios"
 #define SCREENSHOT_OUTPUT_FOLDER "screenshots"
 
-//-----------------------------------------
-//----------- GAMEBOY EMULATION -----------
-//-----------------------------------------
-
-//#define VRAM_MEM_CHECKING // don't even try to enable this...
-#define NO_CAMERA_EMULATION
-
-#define DMG_ROM_FILENAME "dmg_rom.bin"
-#define MGB_ROM_FILENAME "mgb_rom.bin"
-#define SGB_ROM_FILENAME "sgb_rom.bin"
-#define SGB2_ROM_FILENAME "sgb2_rom.bin"
-#define CGB_ROM_FILENAME "cgb_rom.bin"
-#define AGB_ROM_FILENAME "agb_rom.bin"
-
 //-------------------------------------------------
 //----------- GAMEBOY ADVANCE EMULATION -----------
 //-------------------------------------------------

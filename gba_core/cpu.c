@@ -23,7 +23,7 @@
 #include "gba.h"
 #include "cpu.h"
 #include "memory.h"
-#include "../frontend/windows/config.h"
+#include "../frontend/config.h"
 
 //-----------------------------------------------------------------------------------
 
