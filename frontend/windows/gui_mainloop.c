@@ -26,7 +26,7 @@
 #include "gui_config.h"
 #include "gui_mainloop.h"
 #include "gui_gba_debugger.h"
-#include "config.h"
+#include "../config.h"
 #include "../../gba_core/gba.h"
 #include "../../gba_core/cpu.h"
 #include "../../gba_core/interrupts.h"

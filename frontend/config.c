@@ -19,11 +19,11 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "../../build_options.h"
+#include "../build_options.h"
 
 #include "config.h"
-#include "gui_main.h"
-#include "main.h"
+#include "windows/gui_main.h"
+#include "windows/main.h"
 
 t_config EmulatorConfig = { //Default options...
     0, //debug_msg_enable
@@ -278,99 +278,5 @@ void Config_Load(void)
 
     }
 
-/*
-    int player, key;
-    for(player = 0; player < 4; player ++) for(key = 0; key < P_NUM_KEYS; key ++)
-    {
-        char temp_str[64];
-        sprintf(temp_str,"P%d_%s",player+1,GBKeyNames[key]);
+    //free(ini);
 
-        tmp = strstr(ini,temp_str);
-        if(tmp)
-        {
-            tmp += strlen(temp_str) + 1;
-
-            SDLKey k;
-            SDLKey result = SDLK_LAST; int result_len = 0;
-
-            for(k = SDLK_FIRST; k < SDLK_LAST; k++)
-            {
-                int len = strlen(SDL_GetKeyName(k));
-                if(strncmp(tmp,SDL_GetKeyName(k),len) == 0)
-                {
-                    if(len > result_len)
-                    {
-                        result_len = len;
-                        result = k;
-                    }
-                }
-            }
-
-            if(result < SDLK_LAST)
-            {
-                Config_Controls_Set_Key(player,key,result);
-            }
-        }
-    }
-    tmp = strstr(ini,"SpeedUp");
-    if(tmp)
-    {
-        //if exists, and it is empty, set it to none.
-        Config_Controls_Set_Key(0,P_KEY_SPEEDUP,0);
-
-        tmp += strlen("SpeedUp") + 1;
-
-        SDLKey k;
-        SDLKey result = SDLK_LAST; int result_len = 0;
-
-        for(k = SDLK_FIRST; k < SDLK_LAST; k++)
-        {
-            int len = strlen(SDL_GetKeyName(k));
-            if(strncmp(tmp,SDL_GetKeyName(k),len) == 0)
-            {
-                if(len > result_len)
-                {
-                    result_len = len;
-                    result = k;
-                }
-            }
-        }
-
-        if(result < SDLK_LAST)
-        {
-            Config_Controls_Set_Key(0,P_KEY_SPEEDUP,result);
-        }
-    }
-*/
-
-    free(ini);
-}
-
-//---------------------------------------------------------------------
-/*
-SDLKey player_key[4][P_NUM_KEYS] = { //This is the default configuration
-    { SDLK_x,SDLK_z,SDLK_RETURN,SDLK_RSHIFT,SDLK_RIGHT,SDLK_LEFT,SDLK_UP,SDLK_DOWN },
-    { 0,0,0,0,0,0,0,0 },
-    { 0,0,0,0,0,0,0,0 },
-    { 0,0,0,0,0,0,0,0 }
-    };
-
-SDLKey player_key_speedup = SDLK_SPACE;
-
-//----------------------------
-
-inline void Config_Controls_Set_Key(int player, _key_control_enum_ keyindex, SDLKey keysym)
-{
-    if(keyindex == P_KEY_SPEEDUP) player_key_speedup = keysym;
-    else player_key[player][keyindex] = keysym;
-}
-
-inline SDLKey Config_Controls_Get_Key(int player, _key_control_enum_ keyindex)
-{
-    if(keyindex == P_KEY_SPEEDUP) return player_key_speedup;
-    return player_key[player][keyindex];
-}
-
-//---------------------------------------------------------------------
-
-*/

@@ -52,21 +52,11 @@ ADD_DEFINITIONS (-DVERSION="${VERSION}" -DPKGDATADIR="${PKGDATADIR}")
 #	gb_core/sound.c
 #	gb_core/video.c
 #)
+#SET(png_RESOURCES
+#	png/save_png.c
+#)
 
 SET(SRC_WIN32FRONT
-	frontend/windows/config.c
-	frontend/windows/gui_config.c
-	frontend/windows/gui_gb_debugger.c
-	frontend/windows/gui_gb_debugger_vram.c
-	frontend/windows/gui_gba_debugger.c
-	frontend/windows/gui_gba_debugger_vram.c
-	frontend/windows/gui_main.c
-	frontend/windows/gui_mainloop.c
-	frontend/windows/gui_sgb_debugger.c
-	frontend/windows/gui_text_windows.c
-	frontend/windows/main.c
-	frontend/windows/splash.c
-	frontend/windows/text_data.c
 	gba_core/arm.c
 	gba_core/bios.c
 	gba_core/cpu.c
@@ -81,14 +71,21 @@ SET(SRC_WIN32FRONT
 	gba_core/thumb.c
 	gba_core/timers.c
 	gba_core/video.c
+	png/save_png.c
+	frontend/config.c
+	frontend/windows/gui_config.c
+	frontend/windows/gui_gba_debugger.c
+	frontend/windows/gui_gba_debugger_vram.c
+	frontend/windows/gui_main.c
+	frontend/windows/gui_mainloop.c
+	frontend/windows/gui_text_windows.c
+	frontend/windows/main.c
+	frontend/windows/splash.c
+	frontend/windows/text_data.c
 )
 
 SET(giibii_RESOURCES
 	frontend/windows/resource.rc
-)
-
-SET(png_RESOURCES
-	png/save_png.c
 )
 
 if(MINGW)
@@ -108,7 +105,7 @@ INCLUDE_DIRECTORIES(
 ADD_EXECUTABLE (
 	giibiiadvance
 	WIN32
-	${png_RESOURCES}
+	#${png_RESOURCES}
 	${SRC_WIN32FRONT}
 	#${SRC_GBCORE}
 	#${SRC_GBACORE}

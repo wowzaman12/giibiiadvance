@@ -29,7 +29,7 @@
 #include "resource.h"
 
 #include "main.h"
-#include "config.h"
+#include "../config.h"
 #include "../../gba_core/gba.h"
 #include "../../gba_core/save.h"
 #include "../../gba_core/bios.h"
@@ -101,8 +101,6 @@ void GLWindow_MenuEnableROMCommands(int enable)
     EnableMenuItem(GetMenu(hWndMain),CM_MAPVIEWER,MF_BYCOMMAND|(enable?MF_ENABLED:(MF_DISABLED|MF_GRAYED)));
     EnableMenuItem(GetMenu(hWndMain),CM_SPRVIEWER,MF_BYCOMMAND|(enable?MF_ENABLED:(MF_DISABLED|MF_GRAYED)));
     EnableMenuItem(GetMenu(hWndMain),CM_PALVIEWER,MF_BYCOMMAND|(enable?MF_ENABLED:(MF_DISABLED|MF_GRAYED)));
-    EnableMenuItem(GetMenu(hWndMain),CM_SGBVIEWER,
-            MF_BYCOMMAND|((enable&&GameBoy.Emulator.SGBEnabled)?MF_ENABLED:(MF_DISABLED|MF_GRAYED)));
 }
 
 static void GLWindow_CreateMenu(HWND hWnd)
@@ -390,7 +388,6 @@ static LRESULT CALLBACK GLWindow_Process(HWND hWnd, UINT uMsg, WPARAM wParam, LP
                     {
                         GLWindow_ClearPause();
                         if(RUNNING == RUN_GBA) GBA_Reset();
-                        else if(RUNNING == RUN_GB) GB_HardReset();
                         if(EmulatorConfig.frameskip == -1)
                         {
                             FRAMESKIP = 0;
@@ -405,7 +402,6 @@ static LRESULT CALLBACK GLWindow_Process(HWND hWnd, UINT uMsg, WPARAM wParam, LP
                     break;
                 case CM_SCREENSHOT:
                     if(RUNNING == RUN_GBA) GBA_Screenshot();
-                    else if(RUNNING == RUN_GB) GB_Screenshot();
                     SendMessage(hWndMain,WM_EXITMENULOOP,0,0);
                     break;
                 case CM_EXIT:

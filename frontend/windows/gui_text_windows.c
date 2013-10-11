@@ -24,7 +24,7 @@
 #include "resource.h"
 
 #include "main.h"
-#include "config.h"
+#include "../config.h"
 #include "gui_main.h"
 
 //---------------------------------------------------------------------------

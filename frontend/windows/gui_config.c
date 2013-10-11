@@ -25,7 +25,7 @@
 #include "gui_mainloop.h"
 #include "gui_config.h"
 #include "main.h"
-#include "config.h"
+#include "../config.h"
 
 //---------------------------------------------------
 
@@ -76,11 +76,6 @@ void GLWindow_ConfigExit(void)
     {
         GLWindow_SetZoom(aux);
         if(RUNNING == RUN_GBA) GLWindow_ChangeScreen(SCR_GBA);
-        else if(RUNNING == RUN_GB)
-        {
-            if(GameBoy.Emulator.SGBEnabled) GLWindow_ChangeScreen(SCR_SGB);
-            else GLWindow_ChangeScreen(SCR_GB);
-        }
     }
     EmulatorConfig.screen_size = aux;
 

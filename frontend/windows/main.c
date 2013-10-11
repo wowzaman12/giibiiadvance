@@ -24,7 +24,7 @@
 #include "../../build_options.h"
 
 #include "gui_main.h"
-#include "config.h"
+#include "../config.h"
 #include "gui_mainloop.h"
 #include "../../gba_core/gba.h"
 #include "../../gba_core/cpu.h"
