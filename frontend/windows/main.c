@@ -137,27 +137,35 @@ void FileLoad_NoError(const char * filename, void ** buffer, unsigned int * size
 	*buffer = NULL;
 	if(size_) *size_ = 0;
 
-	if(datafile == NULL) return;
+	if(datafile == NULL)
+		return;
 
-    fseek(datafile, 0, SEEK_END);
+	fseek(datafile, 0, SEEK_END);
 	size = ftell(datafile);
 	if(size_) *size_ = size;
 
-	if(size == 0) return;
+	if(size == 0)
+	{
+		if (datafile != NULL)
+			fclose(datafile);
+
+		return;
+	}
 
 	rewind(datafile);
 	*buffer = malloc(size);
 
 	if(*buffer == NULL)
 	{
-        fclose(datafile);
-        return;
-    }
+		fclose(datafile);
+		return;
+	}
+
 	if(fread(*buffer,size,1,datafile) != 1)
 	{
-        fclose(datafile);
-        return;
-    }
+		fclose(datafile);
+		return;
+	}
 
 	fclose(datafile);
 }
