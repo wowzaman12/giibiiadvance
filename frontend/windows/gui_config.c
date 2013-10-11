@@ -278,54 +278,6 @@ void GLWindow_ConfigurationCreateDialog(HWND hWnd, HFONT hFont)
     SendMessage(hCheckSndMute, WM_SETFONT, (WPARAM)hFont, MAKELPARAM(1, 0));
     SET_CHECK(hCheckSndMute, EmulatorConfig.snd_mute);
 
-    //GAMEBOY
-
-    hWndAux = CreateWindow(TEXT("button"), TEXT("Gameboy"),
-            WS_CHILD | WS_VISIBLE | BS_GROUPBOX,
-            5, 195, 170, 140, hWnd, (HMENU)0, hInstance, NULL);
-    SendMessage(hWndAux, WM_SETFONT, (WPARAM)hFont, MAKELPARAM(1, 0));
-    //-------------------
-    hWndAux = CreateWindow(TEXT("static"), TEXT("Hardware type:"),
-            WS_CHILD | WS_VISIBLE | BS_CENTER,
-            10,214, 85,17, hWnd, NULL, hInstance, NULL);
-    SendMessage(hWndAux, WM_SETFONT, (WPARAM)hFont, MAKELPARAM(1, 0));
-
-    hCtrlGBHardType = CreateWindowEx(0,TEXT("combobox"),NULL,
-        CBS_DROPDOWNLIST | WS_VSCROLL | WS_CHILD | WS_VISIBLE,
-        100,212, 70,160,  hWnd, (HMENU)0, hInstance,NULL);
-    SendMessage(hCtrlGBHardType, WM_SETFONT, (WPARAM)hFont, MAKELPARAM(1, 0));
-    SendMessage(hCtrlGBHardType, CB_ADDSTRING, 0, (LPARAM)"Auto");
-    SendMessage(hCtrlGBHardType, CB_ADDSTRING, 0, (LPARAM)"GBA");
-    SendMessage(hCtrlGBHardType, CB_SETCURSEL, (WPARAM)EmulatorConfig.hardware_type+1, 0);
-    //-------------------
-    hWndAux = CreateWindow(TEXT("static"), TEXT("Serial device:"),
-            WS_CHILD | WS_VISIBLE | BS_CENTER,
-            10,238, 75,17, hWnd, NULL, hInstance, NULL);
-    SendMessage(hWndAux, WM_SETFONT, (WPARAM)hFont, MAKELPARAM(1, 0));
-
-    hCtrlGBSerialDevice = CreateWindowEx(0,TEXT("combobox"),NULL,
-        CBS_DROPDOWNLIST | WS_VSCROLL | WS_CHILD | WS_VISIBLE,
-        90,236, 80,160,  hWnd, (HMENU)0, hInstance,NULL);
-    SendMessage(hCtrlGBSerialDevice, WM_SETFONT, (WPARAM)hFont, MAKELPARAM(1, 0));
-    SendMessage(hCtrlGBSerialDevice, CB_ADDSTRING, 0, (LPARAM)"None");
-    SendMessage(hCtrlGBSerialDevice, CB_ADDSTRING, 0, (LPARAM)"GBPrinter");
-    //SendMessage(hCtrlGBSerialDevice, CB_ADDSTRING, 0, (LPARAM)"Gameboy");
-    SendMessage(hCtrlGBSerialDevice, CB_SETCURSEL, (WPARAM)EmulatorConfig.serial_device, 0);
-    //-------------------
-    hCheckGBBlur = CreateWindow(TEXT("button"), TEXT("Enable Blur"), WS_CHILD | WS_VISIBLE | BS_AUTOCHECKBOX,
-                        10,262, 100,17, hWnd, (HMENU)0, hInstance, NULL);
-    SendMessage(hCheckGBBlur, WM_SETFONT, (WPARAM)hFont, MAKELPARAM(1, 0));
-    SET_CHECK(hCheckGBBlur, EmulatorConfig.enableblur);
-    //-------------------
-    hCheckGBRealColors = CreateWindow(TEXT("button"), TEXT("Real Colors"), WS_CHILD | WS_VISIBLE | BS_AUTOCHECKBOX,
-                        10,286, 100,17, hWnd, (HMENU)0, hInstance, NULL);
-    SendMessage(hCheckGBRealColors, WM_SETFONT, (WPARAM)hFont, MAKELPARAM(1, 0));
-    SET_CHECK(hCheckGBRealColors, EmulatorConfig.realcolors);
-    //-------------------
-    hWndAux = CreateWindow(TEXT("static"), TEXT("GB Palette:"),
-            WS_CHILD | WS_VISIBLE | BS_CENTER,
-            10,308, 60,17, hWnd, NULL, hInstance, NULL);
-    SendMessage(hWndAux, WM_SETFONT, (WPARAM)hFont, MAKELPARAM(1, 0));
 
     //GAMEBOY ADVANCE
 
