@@ -24,7 +24,7 @@
 #include "gui_main.h"
 #include "gui_mainloop.h"
 #include "gui_config.h"
-#include "main.h"
+#include "../main.h"
 #include "../config.h"
 
 //---------------------------------------------------

@@ -28,7 +28,7 @@
 #include "../../build_options.h"
 #include "resource.h"
 
-#include "main.h"
+#include "../main.h"
 #include "../config.h"
 #include "../../gba_core/gba.h"
 #include "../../gba_core/save.h"
