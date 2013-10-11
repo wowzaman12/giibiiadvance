@@ -18,7 +18,9 @@
 
 #include <windows.h>
 #include <gl/gl.h>
+
 #include <png.h>
+#include "../../png/save_png.h"
 
 #include <ctype.h>
 #include <stdio.h>
@@ -34,13 +36,9 @@
 #include "../../gba_core/sound.h"
 #include "gui_main.h"
 #include "gui_config.h"
-#include "../../png/save_png.h"
 #include "gui_mainloop.h"
 #include "gui_gba_debugger.h"
 #include "gui_gba_debugger_vram.h"
-#include "gui_gb_debugger.h"
-#include "gui_gb_debugger_vram.h"
-#include "gui_sgb_debugger.h"
 #include "gui_text_windows.h"
 
 //---------------------------------------------------------------------------
@@ -296,17 +294,6 @@ void GLWindow_UnloadRom(int save)
             GLWindow_GBACloseSprViewer();
             GLWindow_GBACloseMapViewer();
             GLWindow_GBACloseTileViewer();
-
-            GLWindow_GBCloseDissasembler();
-            GLWindow_GBCloseMemViewer();
-            GLWindow_GBCloseIOViewer();
-
-            GLWindow_GBClosePalViewer();
-            GLWindow_GBCloseSprViewer();
-            GLWindow_GBCloseMapViewer();
-            GLWindow_GBCloseTileViewer();
-
-            GLWindow_SGBViewerClose();
         }
     }
 }
@@ -352,27 +339,6 @@ int GLWindow_LoadRom(char * path)
         GLWindow_MenuEnableROMCommands(1);
         GLWindow_ClearPause();
         return 1;
-    }
-    else if(rom_type == RUN_GB)
-    {
-        if(GB_MainLoad(path))
-        {
-            extern _GB_CONTEXT_ GameBoy;
-
-            if(GameBoy.Emulator.SGBEnabled) GLWindow_ChangeScreen(SCR_SGB);
-            else GLWindow_ChangeScreen(SCR_GB);
-            RUNNING = RUN_GB;
-
-            if(EmulatorConfig.frameskip == -1)
-            {
-                FRAMESKIP = 0;
-                AUTO_FRAMESKIP_WAIT = 2;
-            }
-
-            GLWindow_MenuEnableROMCommands(1);
-            GLWindow_ClearPause();
-            return 1;
-        }
     }
 
     return 0;
@@ -458,36 +424,25 @@ static LRESULT CALLBACK GLWindow_Process(HWND hWnd, UINT uMsg, WPARAM wParam, LP
                     break;
 
                 case CM_DISASSEMBLER:
-                    if(RUNNING == RUN_GB) GLWindow_GBCreateDissasembler();
-                    else if(RUNNING == RUN_GBA) GLWindow_GBACreateDissasembler();
+                    if(RUNNING == RUN_GBA) GLWindow_GBACreateDissasembler();
                     break;
                 case CM_MEMORYVIEWER:
-                    if(RUNNING == RUN_GB) GLWindow_GBCreateMemViewer();
-                    else if(RUNNING == RUN_GBA) GLWindow_GBACreateMemViewer();
+                    if(RUNNING == RUN_GBA) GLWindow_GBACreateMemViewer();
                     break;
                 case CM_IOVIEWER:
-                    if(RUNNING == RUN_GB) GLWindow_GBCreateIOViewer();
-                    else if(RUNNING == RUN_GBA) GLWindow_GBACreateIOViewer();
+                    if(RUNNING == RUN_GBA) GLWindow_GBACreateIOViewer();
                     break;
                 case CM_TILEVIEWER:
-                    if(RUNNING == RUN_GB) GLWindow_GBCreateTileViewer();
-                    else if(RUNNING == RUN_GBA) GLWindow_GBACreateTileViewer();
+                    if(RUNNING == RUN_GBA) GLWindow_GBACreateTileViewer();
                     break;
                 case CM_MAPVIEWER:
-                    if(RUNNING == RUN_GB) GLWindow_GBCreateMapViewer();
-                    else if(RUNNING == RUN_GBA) GLWindow_GBACreateMapViewer();
+                    if(RUNNING == RUN_GBA) GLWindow_GBACreateMapViewer();
                     break;
                 case CM_SPRVIEWER:
-                    if(RUNNING == RUN_GB) GLWindow_GBCreateSprViewer();
-                    else if(RUNNING == RUN_GBA) GLWindow_GBACreateSprViewer();
+                    if(RUNNING == RUN_GBA) GLWindow_GBACreateSprViewer();
                     break;
                 case CM_PALVIEWER:
-                    if(RUNNING == RUN_GB) GLWindow_GBCreatePalViewer();
-                    else if(RUNNING == RUN_GBA) GLWindow_GBACreatePalViewer();
-                    break;
-                case CM_SGBVIEWER:
-                    if(RUNNING == RUN_GB)
-                        if(GameBoy.Emulator.SGBEnabled) GLWindow_SGBCreateViewer();
+                    if(RUNNING == RUN_GBA) GLWindow_GBACreatePalViewer();
                     break;
 
                 case CM_README:
@@ -514,7 +469,6 @@ static LRESULT CALLBACK GLWindow_Process(HWND hWnd, UINT uMsg, WPARAM wParam, LP
 			{
 				GLWindow_Active = TRUE;
 				if(RUNNING == RUN_GBA) GBA_SoundResetBufferPointers();
-				else if(RUNNING == RUN_GB) GB_SoundResetBufferPointers();
 			}
 			else
 			{
@@ -543,7 +497,6 @@ static LRESULT CALLBACK GLWindow_Process(HWND hWnd, UINT uMsg, WPARAM wParam, LP
 		    GLWindow_Active = TRUE;
 		    SoundMasterEnable(1);
 		    if(RUNNING == RUN_GBA) GBA_SoundResetBufferPointers();
-            else if(RUNNING == RUN_GB) GB_SoundResetBufferPointers();
 		    break;
 		}
 		case WM_PAINT:
@@ -574,7 +527,6 @@ static LRESULT CALLBACK GLWindow_Process(HWND hWnd, UINT uMsg, WPARAM wParam, LP
 		    GLWindow_Active = TRUE;
             SoundMasterEnable(1);
             if(RUNNING == RUN_GBA) GBA_SoundResetBufferPointers();
-            else if(RUNNING == RUN_GB) GB_SoundResetBufferPointers();
             break;
 		}
 		case WM_CLOSE:
@@ -675,9 +627,7 @@ void GLWindow_Resize(int x, int y, int usezoom)
 
 void GLWindow_ChangeScreen(int type)
 {
-    if(type == SCR_SGB) GLWindow_Resize(256,224, 1);
-    else if(type == SCR_GB) GLWindow_Resize(160,144, 1);
-    else //if(type == SCR_GBA)
+    //if(type == SCR_GBA)
     GLWindow_Resize(240,160, 1);
 }
 

@@ -33,13 +33,6 @@
 #include "../../gba_core/sound.h"
 #include "../../gba_core/video.h"
 #include "../../gba_core/memory.h"
-#include "../../gb_core/gameboy.h"
-#include "../../gb_core/gb_main.h"
-#include "../../gb_core/cpu.h"
-#include "../../gb_core/video.h"
-#include "../../gb_core/interrupts.h"
-#include "../../gb_core/gb_main.h"
-#include "../../gb_core/sound.h"
 
 //-----------------------------------------------------------------------------------------------
 
@@ -58,7 +51,7 @@ int AUTO_FRAMESKIP_WAIT = 0;
 int FPScounter, FPS;
 VOID CALLBACK FPSTimerProc(HWND hwnd,UINT uMsg,UINT idEvent,DWORD dwTime)
 {
-    if(RUNNING == RUN_GB) GB_HandleTime(); //The most important thing...
+    //if(RUNNING == RUN_GB) GB_HandleTime(); //Leaving this in but commented out for now
 
     //-----------------------------
 
@@ -280,104 +273,6 @@ void GLWindow_Mainloop(void)
                 //GLWindow_MemViewerUpdate();
                 //GLWindow_IOViewerUpdate();
                 //GLWindow_DisassemblerUpdate();
-
-                TimerWait(Keys_Down[VK_SPACE] == 0);
-            }
-            else if(RUNNING == RUN_GB)
-            {
-                extern _GB_CONTEXT_ GameBoy;
-
-                GB_Input_Update();
-
-                if(Keys_JustPressed[VK_SPACE]) GB_Frameskip(100);
-                if(Keys_Down[VK_SPACE]) GB_SoundResetBufferPointers();
-                else GB_Frameskip(FRAMESKIP);
-
-                while(GameBoy.Emulator.FrameDrawn == 0) GB_CPUStep();
-                GameBoy.Emulator.FrameDrawn = 0;
-
-                if(GB_HaveToFrameskip() == 0)
-                {
-                    GB_Screen_WriteBuffer();
-
-                    glClear(GL_COLOR_BUFFER_BIT); //Clear screen
-
-                    if(scr_texture_loaded) glDeleteTextures(1,&scr_texture);
-                    scr_texture_loaded = 1;
-
-                    glGenTextures(1,&scr_texture);
-                    glBindTexture(GL_TEXTURE_2D,scr_texture);
-                    if(EmulatorConfig.oglfilter)
-                    {
-                        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-                        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-                    }
-                    else
-                    {
-                        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-                        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-                    }
-                    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP);
-                    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP);
-
-                    extern _GB_CONTEXT_ GameBoy;
-                    if(GameBoy.Emulator.SGBEnabled)
-                        glTexImage2D(GL_TEXTURE_2D,0,4,256,224, 0,GL_RGBA,GL_UNSIGNED_BYTE,SCREEN_TEXTURE);
-                    else
-                        glTexImage2D(GL_TEXTURE_2D,0,4,160,144, 0,GL_RGBA,GL_UNSIGNED_BYTE,SCREEN_TEXTURE);
-
-                    glPushMatrix();
-
-                    if(GameBoy.Emulator.rumble)
-                    {
-                        float trns_x = (((float)rand()/(float)RAND_MAX)-0.5) * 2.0;
-                        float trns_y = (((float)rand()/(float)RAND_MAX)-0.5) * 2.0;
-                        glTranslatef(trns_x,trns_y,0);
-                    }
-
-                    if(GameBoy.Emulator.SGBEnabled)
-                    {
-                        glBindTexture(GL_TEXTURE_2D,scr_texture);
-                        glColor3f(1.0,1.0,1.0);
-                        glBegin( GL_QUADS );
-                            glTexCoord2f(0,0); // Top-left vertex
-                            glVertex3f(0,0,0);
-
-                            glTexCoord2f(1,0); // Bottom-left vertex
-                            glVertex3f(256,0,0);
-
-                            glTexCoord2f(1,1); // Bottom-right vertex
-                            glVertex3f(256,224,0);
-
-                            glTexCoord2f(0,1); // Top-right vertex
-                            glVertex3f(0,224,0);
-                        glEnd();
-                    }
-                    else
-                    {
-                        glBindTexture(GL_TEXTURE_2D,scr_texture);
-                        glColor3f(1.0,1.0,1.0);
-                        glBegin( GL_QUADS );
-                            glTexCoord2f(0,0); // Top-left vertex
-                            glVertex3f(0,0,0);
-
-                            glTexCoord2f(1,0); // Bottom-left vertex
-                            glVertex3f(160,0,0);
-
-                            glTexCoord2f(1,1); // Bottom-right vertex
-                            glVertex3f(160,144,0);
-
-                            glTexCoord2f(0,1); // Top-right vertex
-                            glVertex3f(0,144,0);
-                        glEnd();
-                    }
-
-                    glPopMatrix();
-
-                    GLWindow_SwapBuffers();
-                }
-
-                GB_FrameskipUpdate();
 
                 TimerWait(Keys_Down[VK_SPACE] == 0);
             }

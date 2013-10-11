@@ -28,7 +28,6 @@ extern int AUTO_FRAMESKIP_WAIT; //seconds left to start autoframeskip
 
 #define RUN_NONE 0
 #define RUN_GBA  1
-#define RUN_GB   2
 extern int RUNNING;
 
 #endif //__GUI_MAINLOOP__

@@ -46,12 +46,8 @@ void GLWindow_Kill(void);
 
 //+----------------+
 //| GBA -> 240x160 |
-//| GBC -> 160x144 |
-//| SGB -> 256x224 |
 //+----------------+
 #define SCR_GBA 0
-#define SCR_GB  1
-#define SCR_SGB 2
 void GLWindow_ChangeScreen(int type);
 void GLWindow_SetZoom(int zoom);
 
