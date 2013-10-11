@@ -24,8 +24,10 @@
 #include "memory.h"
 #include "save.h"
 
-#include "../main.h"
-#include "../config.h"
+#ifdef WIN32
+#include "../frontend/windows/main.h"
+#endif
+#include "../frontend/config.h"
 
 typedef struct {
     u32 entry_point; //32bit ARM branch opcode, eg. "B rom_start"
