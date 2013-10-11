@@ -134,6 +134,7 @@ void GBA_Screenshot(void)
 		FILE* file=fopen(filename, "rb");
 		if(file == NULL) break; //Ok
 		screenshot_file_number ++; //look for next free number
+		fclose(file);
 	}
 
     u32 * buffer = malloc(240*160*4);
