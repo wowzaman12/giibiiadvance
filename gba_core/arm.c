@@ -2932,16 +2932,16 @@ inline s32 GBA_ExecuteARM(s32 clocks) //returns residual clocks
                                     if(CPU.CPSR&F_T) { CPU.EXECUTION_MODE = EXEC_THUMB; CPU.R[R_PC] += 4; return GBA_ExecuteTHUMB(clocks); }
                                 }
                                 break;
-                        case 0x11: arm_tst_immed((opcode>>16)&0xF,opcode&0xFF,(opcode>>7)&0x1E); break;
-                                clocks -= GBA_MemoryGetAccessCycles(PCseq,1,CPU.R[R_PC]); //1S cycle
-                        case 0x13: arm_teq_immed((opcode>>16)&0xF,opcode&0xFF,(opcode>>7)&0x1E); break;
-                                clocks -= GBA_MemoryGetAccessCycles(PCseq,1,CPU.R[R_PC]); //1S cycle
-                        case 0x15: arm_cmp_immed((opcode>>16)&0xF,opcode&0xFF,(opcode>>7)&0x1E); break;
-                                clocks -= GBA_MemoryGetAccessCycles(PCseq,1,CPU.R[R_PC]); //1S cycle
-                        case 0x17: arm_cmn_immed((opcode>>16)&0xF,opcode&0xFF,(opcode>>7)&0x1E); break;
-                                clocks -= GBA_MemoryGetAccessCycles(PCseq,1,CPU.R[R_PC]); //1S cycle
+                        case 0x11: arm_tst_immed((opcode>>16)&0xF,opcode&0xFF,(opcode>>7)&0x1E);
+                                clocks -= GBA_MemoryGetAccessCycles(PCseq,1,CPU.R[R_PC]); break; //1S cycle
+                        case 0x13: arm_teq_immed((opcode>>16)&0xF,opcode&0xFF,(opcode>>7)&0x1E);
+                                clocks -= GBA_MemoryGetAccessCycles(PCseq,1,CPU.R[R_PC]); break; //1S cycle
+                        case 0x15: arm_cmp_immed((opcode>>16)&0xF,opcode&0xFF,(opcode>>7)&0x1E); 
+                                clocks -= GBA_MemoryGetAccessCycles(PCseq,1,CPU.R[R_PC]); break; //1S cycle
+                        case 0x17: arm_cmn_immed((opcode>>16)&0xF,opcode&0xFF,(opcode>>7)&0x1E);
+                                clocks -= GBA_MemoryGetAccessCycles(PCseq,1,CPU.R[R_PC]); break; //1S cycle
                         case 0x18: arm_orr_immed((opcode>>12)&0xF,(opcode>>16)&0xF,opcode&0xFF,(opcode>>7)&0x1E);
-                                clocks -= GBA_MemoryGetAccessCycles(PCseq,1,CPU.R[R_PC]); //1S cycle
+                                clocks -= GBA_MemoryGetAccessCycles(PCseq,1,CPU.R[R_PC]);        //1S cycle
                                 if(((opcode>>12)&0xF) == 0xF)
                                 {
                                     clocks -= GBA_MemoryGetAccessCyclesNoSeq32(CPU.R[R_PC]) +
