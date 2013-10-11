@@ -16,7 +16,9 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#ifdef WIN32
 #include <windows.h>
+#endif
 #include <stdio.h>
 #include <ctype.h>
 #include <stdarg.h>
@@ -55,7 +57,9 @@ void ConsolePrint(const char * msg, ...)
 
 void ConsoleShow(void)
 {
+#ifdef WIN32
     MessageBox(NULL, console_buffer, "Console", MB_OK);
+#endif
 }
 
 
@@ -110,7 +114,9 @@ void DebugMessage(const char * msg, ...)
 
     if(EmulatorConfig.debug_msg_enable) {
         MESSAGE_SHOWING = 1;
+        #ifdef WIN32
         MessageBox(NULL, buffer, "Debug", MB_OK);
+        #endif
         MESSAGE_SHOWING = 0;
     }
 }
@@ -182,7 +188,9 @@ void FileLoad(const char * filename, void ** buffer, unsigned int * size_)
 	{
 	    char msg[2048];
 	    sprintf(msg,"%s couldn't be opened!",filename);
+	    #ifdef WIN32
 	    MessageBox(NULL, msg, "File open error", MB_OK);
+	    #endif
         return;
     }
 
@@ -203,13 +211,17 @@ void FileLoad(const char * filename, void ** buffer, unsigned int * size_)
 	{
 	    char msg[2048];
 	    sprintf(msg,"Not enought memory to load %s!",filename);
+	    #ifdef WIN32
 	    MessageBox(NULL, msg, "File open error", MB_OK);
+	    #endif
         fclose(datafile);
         return;
     }
 	if(fread(*buffer,size,1,datafile) != 1)
 	{
+	    #ifdef WIN32
 	    MessageBox(NULL, "Error while reading.", "File open error", MB_OK);
+	    #endif
         fclose(datafile);
         return;
     }
@@ -410,7 +422,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
     else while( (biospath[i++] != ' ') && (i < MAXPATHLEN) );
     if( i == MAXPATHLEN )
     {
+        #ifdef WIN32
         MessageBox(NULL,"Error while parsing command line.","Command Line",MB_OK);
+        #endif
         return 0;
     }
     while( (biospath[i--] != '\\') && (i > 0) );

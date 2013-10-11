@@ -23,40 +23,19 @@ ENDIF( NOT VERSION )
 FIND_PACKAGE ( ZLIB REQUIRED )
 FIND_PACKAGE ( PNG REQUIRED )
 
-# Set the default install dir
-IF( NOT DATA_INSTALL_DIR )
-	SET( DATA_INSTALL_DIR "share/vba" )
-ENDIF( NOT DATA_INSTALL_DIR )
-
 SET( PKGDATADIR ${CMAKE_INSTALL_PREFIX}/${DATA_INSTALL_DIR} )
 
 # C defines
-ADD_DEFINITIONS (-DHAVE_NETINET_IN_H -DHAVE_ARPA_INET_H -DHAVE_ZLIB_H -DNO_VIS)
+ADD_DEFINITIONS (-DHAVE_ZLIB_H -DNO_VIS)
 ADD_DEFINITIONS (-DVERSION="${VERSION}" -DPKGDATADIR="${PKGDATADIR}")
-#ADD_DEFINITIONS (-DLINK_EMULATION)
 
 # Source files definition
-#SET(SRC_GBCORE
-#	gb_core/cpu.c
-#	gb_core/debug.c
-#	gb_core/gb_main.c
-#	gb_core/general.c
-#	gb_core/interrupts.c
-#	gb_core/licensees.c
-#	gb_core/mbc.c
-#	gb_core/memory.c
-#	gb_core/noise.c
-#	gb_core/rom.c
-#	gb_core/serial.c
-#	gb_core/sgb.c
-#	gb_core/sound.c
-#	gb_core/video.c
-#)
-#SET(png_RESOURCES
-#	png/save_png.c
-#)
 
-SET(SRC_WIN32FRONT
+SET(png_RESOURCES
+	png/save_png.c
+)
+
+SET(SRC_GBACORE
 	gba_core/arm.c
 	gba_core/bios.c
 	gba_core/cpu.c
@@ -71,7 +50,9 @@ SET(SRC_WIN32FRONT
 	gba_core/thumb.c
 	gba_core/timers.c
 	gba_core/video.c
-	png/save_png.c
+)
+IF( WINDOWS_FRONTEND)
+SET(SRC_FRONTEND
 	frontend/config.c
 	frontend/windows/gui_config.c
 	frontend/windows/gui_gba_debugger.c
@@ -83,6 +64,7 @@ SET(SRC_WIN32FRONT
 	frontend/windows/splash.c
 	frontend/windows/text_data.c
 )
+ENDIF( WINDOWS_FRONTEND)
 
 SET(giibii_RESOURCES
 	frontend/windows/resource.rc
@@ -102,15 +84,17 @@ INCLUDE_DIRECTORIES(
 	${PNG_INCLUDE_DIR}
 )
 
+IF( WINDOWS_FRONTEND )
 ADD_EXECUTABLE (
 	giibiiadvance
 	WIN32
-	#${png_RESOURCES}
-	${SRC_WIN32FRONT}
-	#${SRC_GBCORE}
-	#${SRC_GBACORE}
+	${png_RESOURCES}
+	${SRC_FRONTEND}
+	${SRC_GBACORE}
 	${giibii_RESOURCES}
 )
+ENDIF( WINDOWS_FRONTEND )
+
 
 TARGET_LINK_LIBRARIES (
 	giibiiadvance
