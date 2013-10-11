@@ -452,7 +452,7 @@ void GLWindow_GBAMemViewerUpdate(void)
         int i;
         for(i = 0; i < MEM_LINES; i++)
         {
-            char text[128];
+            char text[256];
             snprintf(text,256,"%08X : %04X %04X %04X %04X %04X %04X %04X %04X  %04X %04X %04X %04X %04X %04X %04X %04X",addr,
                 GBA_MemoryReadFast16(addr),GBA_MemoryReadFast16(addr+2),GBA_MemoryReadFast16(addr+4),
                 GBA_MemoryReadFast16(addr+6),GBA_MemoryReadFast16(addr+8),GBA_MemoryReadFast16(addr+10),
@@ -471,7 +471,7 @@ void GLWindow_GBAMemViewerUpdate(void)
         int i;
         for(i = 0; i < MEM_LINES; i++)
         {
-            char text[128];
+            char text[256];
             snprintf(text,256,"%08X : %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X"
             "   %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X",addr,
                 GBA_MemoryReadFast8(addr),GBA_MemoryReadFast8(addr+1),GBA_MemoryReadFast8(addr+2),
@@ -721,7 +721,7 @@ void GLWindow_GBAIOViewerUpdate(void)
     {
         case 0: //Display
         {
-            char text[5];
+            char text[20];
             //DISPCNT
             sprintf(text,"%04X",REG_DISPCNT); SetWindowText(hTabPageItem[0][2],(LPCTSTR)text);
             sprintf(text,"%d",REG_DISPCNT&7); SetWindowText(hTabPageItem[0][4],(LPCTSTR)text);
@@ -759,8 +759,8 @@ void GLWindow_GBAIOViewerUpdate(void)
             //MOSAIC
             u32 mos = REG_MOSAIC;
             sprintf(text,"%04X",mos); SetWindowText(hTabPageItem[0][54],(LPCTSTR)text);
-            sprintf(text,"Sp %2d,%2d|Bg %2d,%2d",((mos>>8)&0xF)+1,((mos>>12)&0xF)+1,(mos&0xF)+1,
-                ((mos>>4)&0xF)+1); SetWindowText(hTabPageItem[0][55],(LPCTSTR)text);
+            sprintf(text,"Sp %2d,%2d|Bg %2d,%2d",((mos>>8)&0xF)+1,((mos>>12)&0xF)+1,(mos&0xF)+1,((mos>>4)&0xF)+1);
+            SetWindowText(hTabPageItem[0][55],(LPCTSTR)text);
 
             //WINDOWS
             sprintf(text,"%04X|%04X",REG_WIN0H,REG_WIN0V); SetWindowText(hTabPageItem[0][63],(LPCTSTR)text);
