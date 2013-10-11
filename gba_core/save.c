@@ -27,10 +27,11 @@
 #include "cpu.h"
 #include "dma.h"
 #include "save.h"
-#ifdef WIN32
+
 #include "../frontend/windows/main.h"
-#include "../frontend/windows/gui_main.h"
-#endif
+
+//#include "../frontend/windows/gui_main.h"
+
 
 static const char * save_type_strings[5] = {
     "EEPROM_V",    //EEPROM 512 bytes or 8 Kbytes (4Kbit or 64Kbit)

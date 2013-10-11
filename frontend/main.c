@@ -16,24 +16,24 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifdef WIN32
-#include <windows.h>
-#endif
+//#ifdef WIN32
+//#include <windows.h>
+//#endif
 #include <stdio.h>
 #include <ctype.h>
 #include <stdarg.h>
 
 #include "../build_options.h"
 
-#include "gui_main.h"
+#include "windows/gui_main.h"
 #include "config.h"
-#include "gui_mainloop.h"
-#include "../../gba_core/gba.h"
-#include "../../gba_core/cpu.h"
-#include "../../gba_core/interrupts.h"
-#include "../../gba_core/video.h"
-#include "../../gba_core/memory.h"
-#include "../../gba_core/sound.h"
+#include "windows/gui_mainloop.h"
+#include "../gba_core/gba.h"
+#include "../gba_core/cpu.h"
+#include "../gba_core/interrupts.h"
+#include "../gba_core/video.h"
+#include "../gba_core/memory.h"
+#include "../gba_core/sound.h"
 
 //--------------------------------------------------
 char console_buffer[5000];
@@ -57,9 +57,9 @@ void ConsolePrint(const char * msg, ...)
 
 void ConsoleShow(void)
 {
-#ifdef WIN32
-    MessageBox(NULL, console_buffer, "Console", MB_OK);
-#endif
+//#ifdef WIN32
+//    MessageBox(NULL, console_buffer, "Console", MB_OK);
+//#endif
 }
 
 
@@ -114,9 +114,9 @@ void DebugMessage(const char * msg, ...)
 
     if(EmulatorConfig.debug_msg_enable) {
         MESSAGE_SHOWING = 1;
-        #ifdef WIN32
-        MessageBox(NULL, buffer, "Debug", MB_OK);
-        #endif
+        //#ifdef WIN32
+       // MessageBox(NULL, buffer, "Debug", MB_OK);
+       // #endif
         MESSAGE_SHOWING = 0;
     }
 }
@@ -131,7 +131,7 @@ void ErrorMessage(const char * msg, ...)
 	va_end(args);
 
     MESSAGE_SHOWING = 1;
-    MessageBox(NULL, buffer, "Error", MB_OK|MB_ICONSTOP);
+    //MessageBox(NULL, buffer, "Error", MB_OK|MB_ICONSTOP);
     MESSAGE_SHOWING = 0;
 }
 
@@ -188,9 +188,9 @@ void FileLoad(const char * filename, void ** buffer, unsigned int * size_)
 	{
 	    char msg[2048];
 	    sprintf(msg,"%s couldn't be opened!",filename);
-	    #ifdef WIN32
-	    MessageBox(NULL, msg, "File open error", MB_OK);
-	    #endif
+	   // #ifdef WIN32
+	  //  MessageBox(NULL, msg, "File open error", MB_OK);
+	   // #endif
         return;
     }
 
@@ -201,7 +201,7 @@ void FileLoad(const char * filename, void ** buffer, unsigned int * size_)
 	{
 	    char msg[2048];
 	    sprintf(msg,"Size of %s is 0!",filename);
-	    MessageBox(NULL, msg, "File open error", MB_OK);
+	    //MessageBox(NULL, msg, "File open error", MB_OK);
         fclose(datafile);
         return;
     }
@@ -211,17 +211,17 @@ void FileLoad(const char * filename, void ** buffer, unsigned int * size_)
 	{
 	    char msg[2048];
 	    sprintf(msg,"Not enought memory to load %s!",filename);
-	    #ifdef WIN32
-	    MessageBox(NULL, msg, "File open error", MB_OK);
-	    #endif
+	    //#ifdef WIN32
+	    //MessageBox(NULL, msg, "File open error", MB_OK);
+	    //#endif
         fclose(datafile);
         return;
     }
 	if(fread(*buffer,size,1,datafile) != 1)
 	{
-	    #ifdef WIN32
-	    MessageBox(NULL, "Error while reading.", "File open error", MB_OK);
-	    #endif
+	    //#ifdef WIN32
+	   //MessageBox(NULL, "Error while reading.", "File open error", MB_OK);
+	   // #endif
         fclose(datafile);
         return;
     }
@@ -391,7 +391,7 @@ static void atexit_fn(void)
     Config_Save(); //THIS IS NEEDED
 }
 
-#include "splash.h"
+#include "windows/splash.h"
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int iCmdShow)
 {
@@ -422,9 +422,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
     else while( (biospath[i++] != ' ') && (i < MAXPATHLEN) );
     if( i == MAXPATHLEN )
     {
-        #ifdef WIN32
-        MessageBox(NULL,"Error while parsing command line.","Command Line",MB_OK);
-        #endif
+        //#ifdef WIN32
+        //MessageBox(NULL,"Error while parsing command line.","Command Line",MB_OK);
+        //#endif
         return 0;
     }
     while( (biospath[i--] != '\\') && (i > 0) );

@@ -12,6 +12,7 @@ IF(CMAKE_COMPILER_IS_GNUCC)
     SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99 -fexpensive-optimizations -O3 -Wall -s")
 ENDIF()
 
+option( ENABLE_WINDOWS_FRONTEND "Build the Windows port" ON )
 # Set the version number with -DVERSION=X.X.X-uber
 
 # Version number
@@ -26,7 +27,7 @@ FIND_PACKAGE ( PNG REQUIRED )
 SET( PKGDATADIR ${CMAKE_INSTALL_PREFIX}/${DATA_INSTALL_DIR} )
 
 # C defines
-ADD_DEFINITIONS (-DHAVE_ZLIB_H -DNO_VIS)
+ADD_DEFINITIONS (-DHAVE_ZLIB_H -DNO_VIS -DWIN32)
 ADD_DEFINITIONS (-DVERSION="${VERSION}" -DPKGDATADIR="${PKGDATADIR}")
 
 # Source files definition
@@ -51,56 +52,52 @@ SET(SRC_GBACORE
 	gba_core/timers.c
 	gba_core/video.c
 )
-IF( WINDOWS_FRONTEND)
-SET(SRC_FRONTEND
-	frontend/config.c
-	frontend/windows/gui_config.c
-	frontend/windows/gui_gba_debugger.c
-	frontend/windows/gui_gba_debugger_vram.c
-	frontend/windows/gui_main.c
-	frontend/windows/gui_mainloop.c
-	frontend/windows/gui_text_windows.c
-	frontend/windows/main.c
-	frontend/windows/splash.c
-	frontend/windows/text_data.c
-)
-ENDIF( WINDOWS_FRONTEND)
+IF( ENABLE_WINDOWS_FRONTEND)
+	SET(SRC_FRONTEND
+		frontend/config.c
+		frontend/main.c
+		frontend/windows/gui_config.c
+		frontend/windows/gui_gba_debugger.c
+		frontend/windows/gui_gba_debugger_vram.c
+		frontend/windows/gui_main.c
+		frontend/windows/gui_mainloop.c
+		frontend/windows/gui_text_windows.c
+		frontend/windows/splash.c
+		frontend/windows/text_data.c
+	)
+	SET(giibii_RESOURCES
+		frontend/windows/resource.rc
+	)
+ENDIF( ENABLE_WINDOWS_FRONTEND)
 
-SET(giibii_RESOURCES
-	frontend/windows/resource.rc
-)
-
-if(MINGW)
-	set(CMAKE_RC_COMPILE_OBJECT
-		"<CMAKE_RC_COMPILER> <FLAGS> -O coff <DEFINES> -i <SOURCE> -o <OBJECT>")
-endif(MINGW)
-
-if(MINGW AND CMAKE_CROSSCOMPILING)
-	set_target_properties(giibiiadvance PROPERTIES LINK_FLAGS "-static-libgcc -static-libstdc++")
-endif()
 
 INCLUDE_DIRECTORIES(
 	${ZLIB_INCLUDE_DIRS}
 	${PNG_INCLUDE_DIR}
 )
+if(MINGW AND CMAKE_CROSSCOMPILING)
+	set_target_properties(giibiiadvance PROPERTIES LINK_FLAGS "-static-libgcc -static-libstdc++")
+endif()
 
-IF( WINDOWS_FRONTEND )
-ADD_EXECUTABLE (
-	giibiiadvance
-	WIN32
-	${png_RESOURCES}
-	${SRC_FRONTEND}
-	${SRC_GBACORE}
-	${giibii_RESOURCES}
-)
-ENDIF( WINDOWS_FRONTEND )
+IF( ENABLE_WINDOWS_FRONTEND )
+	set(CMAKE_RC_COMPILE_OBJECT
+		"<CMAKE_RC_COMPILER> <FLAGS> -O coff <DEFINES> -i <SOURCE> -o <OBJECT>"
+	)
+	#set_target_properties(giibiiadvance PROPERTIES LINK_FLAGS "-static-libgcc -static-libstdc++")
+	ADD_EXECUTABLE (
+		giibiiadvance
+		WIN32
+		${png_RESOURCES}
+		${SRC_GBACORE}
+		${SRC_FRONTEND}
+		${giibii_RESOURCES}
+	)
 
-
-TARGET_LINK_LIBRARIES (
-	giibiiadvance
-	${ZLIB_LIBRARIES}
-	${PNG_LIBRARY}
-)
-
+	TARGET_LINK_LIBRARIES (
+		giibiiadvance
+		${ZLIB_LIBRARIES}
+		${PNG_LIBRARY}
+	)
+ENDIF( ENABLE_WINDOWS_FRONTEND )
 # Installation
 INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/giibiiadvance DESTINATION bin)

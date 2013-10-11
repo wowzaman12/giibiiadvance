@@ -22,7 +22,7 @@
 
 #include "../build_options.h"
 
-#include "../frontend/windows/main.h"
+#include "../frontend/main.h"
 
 void png_warn_fn_(png_structp sp, png_const_charp cp)
 {

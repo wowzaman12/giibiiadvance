@@ -20,7 +20,7 @@
 #define __GBA__
 
 #ifdef WIN32
-#include "../frontend/windows/main.h"
+#include "../frontend/main.h"
 #endif
 
 //--------------------------------------------------------------------------------------

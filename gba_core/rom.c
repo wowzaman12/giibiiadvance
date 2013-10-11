@@ -24,9 +24,8 @@
 #include "memory.h"
 #include "save.h"
 
-#ifdef WIN32
-#include "../frontend/windows/main.h"
-#endif
+
+#include "../frontend/main.h"
 #include "../frontend/config.h"
 
 typedef struct {

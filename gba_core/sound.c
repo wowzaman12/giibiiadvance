@@ -27,9 +27,7 @@
 #include "sound.h"
 #include "cpu.h"
 
-#ifdef WIN32
-#include "../frontend/windows/main.h"
-#endif
+#include "../frontend/main.h"
 #include "../frontend/config.h"
 
 #define GBA_BUFFER_SIZE (16384) //Yeah... quite a lot, but it works fine this way.

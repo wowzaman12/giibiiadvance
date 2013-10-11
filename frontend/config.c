@@ -22,8 +22,8 @@
 #include "../build_options.h"
 
 #include "config.h"
+#include "main.h"
 #include "windows/gui_main.h"
-#include "windows/main.h"
 
 t_config EmulatorConfig = { //Default options...
     0, //debug_msg_enable
