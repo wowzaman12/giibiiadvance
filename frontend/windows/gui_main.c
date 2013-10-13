@@ -77,7 +77,6 @@ HWND hWndMain; //Used for telling all the windows which is the parent
 #define CM_MAPVIEWER      124
 #define CM_SPRVIEWER      125
 #define CM_PALVIEWER      126
-#define CM_SGBVIEWER      127
 
 #define CM_README         130
 #define CM_LICENSE        131
@@ -134,7 +133,6 @@ static void GLWindow_CreateMenu(HWND hWnd)
     AppendMenu(hMenuDebug, MF_STRING, CM_SPRVIEWER, "&Sprite Viewer");
     AppendMenu(hMenuDebug, MF_STRING, CM_PALVIEWER, "&Palette Viewer");
     AppendMenu(hMenuDebug, MF_SEPARATOR, 0, NULL);
-    AppendMenu(hMenuDebug, MF_STRING, CM_SGBVIEWER, "S&GB Viewer");
 
     HMENU hMenuHelp = CreateMenu();
     AppendMenu(hMenuHelp, MF_STRING, CM_README, "&Readme\bF1");
