@@ -28,7 +28,7 @@
 #include "dma.h"
 #include "save.h"
 
-#include "../frontend/windows/main.h"
+#include "../frontend/main.h"
 
 //#include "../frontend/windows/gui_main.h"
 

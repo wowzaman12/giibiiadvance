@@ -329,7 +329,6 @@ static LRESULT CALLBACK ConfigurationProcedure(HWND hWnd, UINT Msg, WPARAM wPara
             HPEN hPen = (HPEN)CreatePen(PS_SOLID, 1, RGB(192,192,192));
             SelectObject(hDC, hPen);
             u8 r,g,b;
-            menu_get_gb_palette(&r,&g,&b);
             HBRUSH hBrush = (HBRUSH)CreateSolidBrush( r|(g<<8)|(b<<16) );
             SelectObject(hDC, hBrush);
             Rectangle(hDC, 80, 309, 80+85, 309+18);
@@ -344,8 +343,7 @@ static LRESULT CALLBACK ConfigurationProcedure(HWND hWnd, UINT Msg, WPARAM wPara
             int ypos = HIWORD(lParam); // mouse ypos
             if( (xpos >= 80) && (xpos <= (80+85)) ) if( (ypos >= 309) && (ypos <= (309+18)) )
             {
-                u8 r,g,b; menu_get_gb_palette(&r,&g,&b);
-                u32 currcolor = ((u32)r) | (((u32)g)<<8) | (((u32)b)<<16);
+                //u32 currcolor = ((u32)r) | (((u32)g)<<8) | (((u32)b)<<16);
 
                 CHOOSECOLOR cc;
                 static COLORREF acrCustClr[16];
@@ -355,12 +353,12 @@ static LRESULT CALLBACK ConfigurationProcedure(HWND hWnd, UINT Msg, WPARAM wPara
                 cc.lStructSize = sizeof(cc);
                 cc.hwndOwner = hWnd;
                 cc.lpCustColors = (LPDWORD)acrCustClr;
-                cc.rgbResult = currcolor;
+                //cc.rgbResult = currcolor;
                 cc.Flags = CC_FULLOPEN | CC_RGBINIT | CC_SOLIDCOLOR;
                 if(ChooseColor(&cc)==TRUE)
                 {
-                    menu_set_gb_palette(cc.rgbResult&0xFF, (cc.rgbResult>>8)&0xFF,
-                        (cc.rgbResult>>16)&0xFF);
+                    //menu_set_gb_palette(cc.rgbResult&0xFF, (cc.rgbResult>>8)&0xFF,
+                    //    (cc.rgbResult>>16)&0xFF);
                     InvalidateRect(hWnd, NULL, FALSE);
                 }
             }

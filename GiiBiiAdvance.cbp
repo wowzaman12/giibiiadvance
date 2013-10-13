@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="GiiBiiAdvance" />
+		<Option platforms="Windows;" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Release">
+				<Option output="./GiiBiiAdvance" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="./" />
+				<Option object_output="./build/release/obj/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-O3" />
+					<Add option="-Wall" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+			<Target title="Debug">
+				<Option output="./build/debug/GiiBiiAdvance" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="./build/debug/" />
+				<Option object_output="./build/debug/obj/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-pg" />
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-pg -lgmon" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-DNO_VIZ" />
+		</Compiler>
+		<Linker>
+			<Add library="gdi32" />
+			<Add library="user32" />
+			<Add library="kernel32" />
+			<Add library="winmm" />
+			<Add library="opengl32" />
+			<Add library="png16" />
+			<Add library="z" />
+		</Linker>
+		<Unit filename="frontend/config.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="frontend/config.h" />
+		<Unit filename="frontend/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="frontend/main.h" />
+		<Unit filename="frontend/windows/gui_config.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="frontend/windows/gui_config.h" />
+		<Unit filename="frontend/windows/gui_gba_debugger.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="frontend/windows/gui_gba_debugger.h" />
+		<Unit filename="frontend/windows/gui_gba_debugger_vram.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="frontend/windows/gui_gba_debugger_vram.h" />
+		<Unit filename="frontend/windows/gui_main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="frontend/windows/gui_main.h" />
+		<Unit filename="frontend/windows/gui_mainloop.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="frontend/windows/gui_mainloop.h" />
+		<Unit filename="frontend/windows/gui_text_windows.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="frontend/windows/gui_text_windows.h" />
+		<Unit filename="frontend/windows/icon.ico" />
+		<Unit filename="frontend/windows/resource.h" />
+		<Unit filename="frontend/windows/resource.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
+		<Unit filename="frontend/windows/splash.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="frontend/windows/splash.h" />
+		<Unit filename="frontend/windows/text_data.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gba_core/arm.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gba_core/bios.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gba_core/bios.h" />
+		<Unit filename="gba_core/cpu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gba_core/cpu.h" />
+		<Unit filename="gba_core/disassembler.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gba_core/disassembler.h" />
+		<Unit filename="gba_core/dma.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gba_core/dma.h" />
+		<Unit filename="gba_core/gba.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gba_core/gba.h" />
+		<Unit filename="gba_core/interrupts.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gba_core/interrupts.h" />
+		<Unit filename="gba_core/memory.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gba_core/memory.h" />
+		<Unit filename="gba_core/rom.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gba_core/rom.h" />
+		<Unit filename="gba_core/save.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gba_core/save.h" />
+		<Unit filename="gba_core/shifts.h" />
+		<Unit filename="gba_core/sound.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gba_core/sound.h" />
+		<Unit filename="gba_core/thumb.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gba_core/timers.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gba_core/timers.h" />
+		<Unit filename="gba_core/video.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gba_core/video.h" />
+		<Unit filename="png/save_png.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="png/save_png.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<wxsmith version="1">
+				<gui name="wxWidgets" src="" main="" init_handlers="necessary" language="CPP" />
+			</wxsmith>
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
