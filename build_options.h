@@ -39,7 +39,7 @@
 
 #define GIIBIIADVANCE_VERSION_STRING "0.1.0"
 
-#define GIIBIIADVANCE_COPYRIGHT_STRING "Copyright (C) 2011 Antonio Niño Díaz (AntonioND)"
+#define GIIBIIADVANCE_COPYRIGHT_STRING "Copyright (C) 2011 Antonio Niño Díaz (AntonioND)\r\n Copyright (C) 2013 Zach Thibeau"
 
 //---------------------------
 

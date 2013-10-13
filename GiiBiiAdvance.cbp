@@ -8,9 +8,9 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Release">
-				<Option output="./GiiBiiAdvance" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="./" />
-				<Option object_output="./build/release/obj/" />
+				<Option output="../bin/GiiBiiAdvance" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin" />
+				<Option object_output="../bin/release/obj/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -23,9 +23,9 @@
 				</Linker>
 			</Target>
 			<Target title="Debug">
-				<Option output="./build/debug/GiiBiiAdvance" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="./build/debug/" />
-				<Option object_output="./build/debug/obj/" />
+				<Option output="../bin/GiiBiiAdvance-debug" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin" />
+				<Option object_output="../bin/debug/obj/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -59,6 +59,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="frontend/main.h" />
+		<Unit filename="frontend/windows/GiiBiiAdvance.exe.Manifest" />
 		<Unit filename="frontend/windows/gui_config.c">
 			<Option compilerVar="CC" />
 		</Unit>
