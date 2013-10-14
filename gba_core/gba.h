@@ -161,7 +161,6 @@ int GBA_InitRom(void * bios_ptr, void * rom_ptr, u32 romsize);
 int GBA_EndRom(int save);
 void GBA_Reset(void);
 
-void GBA_Screenshot(void);
 
 u32 GBA_RunFor(s32 totalclocks);
 void GBA_DebugStep(void);
