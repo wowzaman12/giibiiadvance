@@ -191,7 +191,7 @@ u8 GBA_SaveRead8(u32 address)
             //DebugMessage("Save type autodetect: SRAM");
             GBA_ResetSaveBuffer();
             GBA_SaveReadFile();
-            ConsolePrint("SRAM (32KB)");
+            printf("SRAM (32KB)");
         }
     }
 
@@ -276,7 +276,7 @@ u16 GBA_SaveRead16(u32 address)
             //DebugMessage("Save type autodetect: EEPROM");
             GBA_ResetSaveBuffer();
             GBA_SaveReadFile();
-            ConsolePrint("EEPROM");
+            printf("EEPROM");
         }
     }
 
@@ -334,7 +334,7 @@ void GBA_SaveWrite8(u32 address, u8 data)
             //DebugMessage("Save type autodetect: FLASH");
             GBA_ResetSaveBuffer();
             GBA_SaveReadFile();
-            ConsolePrint("FLASH (Default to 128KB)");
+            printf("FLASH (Default to 128KB)");
         }
         else if((address >= 0x0E000000) && (address < 0x0E010000))
         {
@@ -342,7 +342,7 @@ void GBA_SaveWrite8(u32 address, u8 data)
             //DebugMessage("Save type autodetect: SRAM");
             GBA_ResetSaveBuffer();
             GBA_SaveReadFile();
-            ConsolePrint("SRAM (32KB)");
+            printf("SRAM (32KB)");
         }
     }
 
@@ -571,7 +571,7 @@ void GBA_SaveWrite16(u32 address, u16 data)
             //DebugMessage("Save type autodetect: EEPROM");
             GBA_ResetSaveBuffer();
             GBA_SaveReadFile();
-            ConsolePrint("EEPROM");
+            printf("EEPROM");
         }
     }
 
@@ -589,19 +589,19 @@ void GBA_SaveWrite16(u32 address, u16 data)
                         EEPROM_SIZE = 512;
                         EEPROM_ADDRESS_BUS = 6;
                         EEPROM_ADDRESS_MASK = 0x1FF;
-                        ConsolePrint(" 512B");
+                        printf(" 512B");
                     }
                     else if(gba_dma3numchunks() == 17)
                     {
                         EEPROM_SIZE = 8*1024;
                         EEPROM_ADDRESS_BUS = 14;
                         EEPROM_ADDRESS_MASK = 0x1FFF;
-                        ConsolePrint(" 8KB");
+                        printf(" 8KB");
                     }
                     else
                     {
                         ErrorMessage("EEPROM: Failed size autodetection. %d", gba_dma3numchunks());
-                        ConsolePrint("\nFailed size autodetection.");
+                        printf("\nFailed size autodetection.");
                     }
 
                     //DebugMessage("EEPROM_SIZE: %d",EEPROM_SIZE);
