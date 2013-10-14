@@ -51,6 +51,7 @@
 			<Add library="png16" />
 			<Add library="z" />
 		</Linker>
+		<Unit filename="build_options.h" />
 		<Unit filename="frontend/config.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -80,6 +81,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="frontend/windows/gui_mainloop.h" />
+		<Unit filename="frontend/windows/gui_screenshot.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="frontend/windows/gui_screenshot.h" />
 		<Unit filename="frontend/windows/gui_sound.c">
 			<Option compilerVar="CC" />
 		</Unit>
