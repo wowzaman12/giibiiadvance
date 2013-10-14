@@ -165,20 +165,20 @@ void  GBA_HeaderCheck(void * rom)
 
     ConsoleReset();
 
-	ConsolePrint("Checking cartridge...\n");
+	printf("Checking cartridge...\n");
 
     char text[13];
     memcpy(text,header->game_title,12);
     text[12] = '\0';
-	ConsolePrint("Game title: %s\n",text);
+	printf("Game title: %s\n",text);
 
 	memcpy(text,header->game_code,4);
 	text[4] = '\0';
-	ConsolePrint("Game code: %s\n",text);
+	printf("Game code: %s\n",text);
 
 	memcpy(text,header->maker_code,2);
 	text[2] = '\0';
-	ConsolePrint("Maker code: %s\n",text);
+	printf("Maker code: %s\n",text);
 
     const u8 nintendo_logo[156] = {
         0x24,0xFF,0xAE,0x51,0x69,0x9A,0xA2,0x21,0x3D,0x84,0x82,0x0A,0x84,0xE4,0x09,0xAD,
@@ -196,44 +196,44 @@ void  GBA_HeaderCheck(void * rom)
     int logo_bad = 0;
     int i = 0;
     for(i = 0; i < 156; i++) logo_bad |= (nintendo_logo[i] != header->nintendo_logo[i]);
-    ConsolePrint("Nintendo Logo... %s\n",(logo_bad==0) ? "OK" : "BAD [!]");
+    printf("Nintendo Logo... %s\n",(logo_bad==0) ? "OK" : "BAD [!]");
     if(logo_bad) if(EmulatorConfig.debug_msg_enable) showconsole = 1;
 
     u8 debugging_enable = header->nintendo_logo[0x9C-0x04];
     if( ( (debugging_enable & (BIT(2)|BIT(7))) == BIT(2) ) || ( (debugging_enable & (BIT(2)|BIT(7))) == BIT(9) ) )
     {
         if(EmulatorConfig.debug_msg_enable) showconsole = 1;
-        ConsolePrint("[!]Header byte 0x9C = %02X -> Debug (?)\n",debugging_enable);
+        printf("[!]Header byte 0x9C = %02X -> Debug (?)\n",debugging_enable);
     }
     else if( (debugging_enable & (BIT(2)|BIT(7))) == (BIT(2)|BIT(7)) )
     {
         if(EmulatorConfig.debug_msg_enable) showconsole = 1;
-        ConsolePrint("[!]Header byte 0x9C = %02X -> Debugging enabled!\n",debugging_enable);
+        printf("[!]Header byte 0x9C = %02X -> Debugging enabled!\n",debugging_enable);
     }
 
     u8 cartridge_key_number_LSBs = header->nintendo_logo[0x9E - 0x04];
     if(cartridge_key_number_LSBs & (BIT(0)|BIT(1)))
     {
         if(EmulatorConfig.debug_msg_enable) showconsole = 1;
-        ConsolePrint("[!]Header byte 0x9E = %02X -> Key number (?)\n",cartridge_key_number_LSBs);
+        printf("[!]Header byte 0x9E = %02X -> Key number (?)\n",cartridge_key_number_LSBs);
     }
 
-	ConsolePrint("Fixed 96h... %s\n",header->fixed_96h == 0x96 ? "OK" : "BAD [!]");
+	printf("Fixed 96h... %s\n",header->fixed_96h == 0x96 ? "OK" : "BAD [!]");
     if(header->fixed_96h != 0x96) if(EmulatorConfig.debug_msg_enable) showconsole = 1;
 
-    ConsolePrint("Main unit code: %02X\n",header->main_unit_code);
-    ConsolePrint("Device type: %02X\n",header->device_type);
-    ConsolePrint("Software version: %02X\n",header->software_version);
+    printf("Main unit code: %02X\n",header->main_unit_code);
+    printf("Device type: %02X\n",header->device_type);
+    printf("Software version: %02X\n",header->software_version);
 
     u8 check = 0;
     for(i = 0xA0; i <= 0xBC; i++) check -= (((u8*)rom)[i]);
     check -= 0x19;
 
-    ConsolePrint("Complement check: %02X -- Obtained: %02X -- %s\n",header->complement_check,check,
+    printf("Complement check: %02X -- Obtained: %02X -- %s\n",header->complement_check,check,
         header->complement_check == check ? "OK" : "BAD [!]");
     if(header->complement_check != check) if(EmulatorConfig.debug_msg_enable) showconsole = 1;
 
-    ConsolePrint("Save type: %s", GBA_GetSaveTypeString());
+    printf("Save type: %s", GBA_GetSaveTypeString());
 
     if(showconsole) ConsoleShow();
 }
