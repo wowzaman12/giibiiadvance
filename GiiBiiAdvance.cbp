@@ -80,6 +80,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="frontend/windows/gui_mainloop.h" />
+		<Unit filename="frontend/windows/gui_sound.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="frontend/windows/gui_text_windows.c">
 			<Option compilerVar="CC" />
 		</Unit>
