@@ -33,10 +33,6 @@
 #include "rom.h"
 #include "sound.h"
 #include "../png/save_png.h"
-#ifdef WIN32
-#include "../frontend/windows/gui_main.h"
-#include "../frontend/windows/gui_mainloop.h"
-#endif
 static s32 clocks;
 
 static int inited = 0;
@@ -177,8 +173,12 @@ u32 GBA_RunFor(s32 totalclocks)
             {
                 residualclocks = GBA_Execute(clocks);
                 executedclocks = clocks-residualclocks;
+                /**
+                 * Not entirely sure if this is safe, but for now it works
+                 * will investigate later
+                 **/
 
-                if(RUNNING != RUN_GBA) return 0;
+                /*if(RUNNING != RUN_GBA) return 0;*/
             }
         }
 
@@ -211,8 +211,11 @@ u32 GBA_RunFor(s32 totalclocks)
             {
                 residualclocks = GBA_Execute(totalclocks);
                 executedclocks = totalclocks-residualclocks;
-
-                if(RUNNING != RUN_GBA) return 0;
+                /**
+                 * Not entirely sure if this is safe, but for now it works
+                 * will investigate later
+                 **/
+                /*if(RUNNING != RUN_GBA) return 0;*/
             }
             totalclocks = residualclocks;
         }
