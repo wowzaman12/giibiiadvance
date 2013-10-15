@@ -10,3 +10,5 @@ Todo List
 * ~~remove SGB/GB and decouple WIN32 Frontend making it gba only~~
 * Add libretro interface
 * Design a complete new cross platform interface (prefferably wxwidgets based)
+* improve sound
+* improve emulation

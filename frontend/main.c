@@ -58,6 +58,7 @@ void ConsoleShow(void)
 //#ifdef WIN32
 //    MessageBox(NULL, console_buffer, "Console", MB_OK);
 //#endif
+	fprintf("error.log", console_buffer, NULL);
 }
 
 
@@ -109,7 +110,7 @@ void DebugMessage(const char * msg, ...)
     if(EmulatorConfig.debug_msg_enable) {
         MESSAGE_SHOWING = 1;
         //#ifdef WIN32
-       // MessageBox(NULL, buffer, "Debug", MB_OK);
+        fprintf("debug.log", buffer, "debug");
        // #endif
         MESSAGE_SHOWING = 0;
     }
@@ -126,6 +127,7 @@ void ErrorMessage(const char * msg, ...)
 
     MESSAGE_SHOWING = 1;
     //MessageBox(NULL, buffer, "Error", MB_OK|MB_ICONSTOP);
+    //fprintf("error.log", buffer, NULL);
     MESSAGE_SHOWING = 0;
 }
 
@@ -185,6 +187,7 @@ void FileLoad(const char * filename, void ** buffer, unsigned int * size_)
 	   // #ifdef WIN32
 	  //  MessageBox(NULL, msg, "File open error", MB_OK);
 	   // #endif
+        fprintf("error.log", msg, NULL);
         return;
     }
 

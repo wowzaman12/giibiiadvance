@@ -1,3 +1,4 @@
+
 ifeq ($(platform),)
 platform = unix
 ifeq ($(shell uname -a),)
@@ -11,7 +12,7 @@ else ifneq ($(findstring Darwin,$(shell uname -a)),)
 endif
 endif
 
-TARGET_NAME = giibiiadvance
+TARGET_NAME = Giibiiadvance
 
 ifeq ($(platform), unix)
    TARGET := $(TARGET_NAME)_libretro.so
@@ -25,30 +26,29 @@ else
    TARGET := $(TARGET_NAME)_libretro.dll
    LDFLAGS += -Wl,-no-undefined -Wl,--version-script=link.T
    CC = gcc
-   CXX = g++
    SHARED := -shared -static-libgcc -static-libstdc++ -ffast-math -fomit-frame-pointer
 endif
 
-GIIBII_DIR := ./
+GIIBII_DIR := ../..
 
-GIIBII_SRC_DIRS := $(GIIBII_DIR)/gba_core  $(GIIBII_DIR)/frontend $(GIIBII_DIR)/frontend/libretro
+GIIBII_SRC_DIRS := $(GIIBII_DIR)/gba_core $(GIIBII_DIR)/frontend
 
 GIIBII_CSRCS := $(foreach dir,$(GIIBII_SRC_DIRS),$(wildcard $(dir)/*.c))
 GIIBII_COBJ := $(GIIBII_CSRCS:.c=.o)
 
-OBJS := $(GIIBII_COBJ) 
+OBJS := $(GIIBII_COBJ) libretro.o
 
 GIIBII_DEFINES += -D__LIBRETRO__ -DNO_VIZ
 GIIBII_DEFINES += -DFRONTEND_SUPPORTS_RGB565
 
-CFLAGS += -O3 -std=gnu99 $(fpic) $(GIIBII_DEFINES)
+CFLAGS += -O3 -std=gnu99 $(fpic) $(GIIBII_DEFINES) 
 
 
 INCDIRS := -I$(GIIBII_DIR)
 LIBS :=
 
 $(TARGET): $(OBJS)
-	$(CC) -o $@ $(SHARED) $(OBJS) $(LDFLAGS) $(LIBS)
+	$(CXX) -o $@ $(SHARED) $(OBJS) $(LDFLAGS) $(LIBS)
 
 %.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS) $(INCDIRS)
