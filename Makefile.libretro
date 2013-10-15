@@ -22,22 +22,23 @@ else ifeq ($(platform), osx)
    fpic := -fPIC
    SHARED := -dynamiclib
 else
-   TARGET := $(TARGET_NAME)
-   LDFLAGS += -Wl,-no-undefined
+   TARGET := $(TARGET_NAME)_libretro.dll
+   LDFLAGS += -Wl,-no-undefined -Wl,--version-script=link.T
    CC = gcc
+   CXX = g++
    SHARED := -shared -static-libgcc -static-libstdc++ -ffast-math -fomit-frame-pointer
 endif
 
 GIIBII_DIR := ./
 
-GIIBII_SRC_DIRS := $(GIIBII_DIR)/gba_core  $(GIIBII_DIR)/frontend $(GIIBII_DIR)/frontend/windows
+GIIBII_SRC_DIRS := $(GIIBII_DIR)/gba_core  $(GIIBII_DIR)/frontend $(GIIBII_DIR)/frontend/libretro
 
 GIIBII_CSRCS := $(foreach dir,$(GIIBII_SRC_DIRS),$(wildcard $(dir)/*.c))
 GIIBII_COBJ := $(GIIBII_CSRCS:.c=.o)
 
 OBJS := $(GIIBII_COBJ) 
 
-GIIBII_DEFINES += -DNO_VIZ
+GIIBII_DEFINES += -D__LIBRETRO__ -DNO_VIZ
 GIIBII_DEFINES += -DFRONTEND_SUPPORTS_RGB565
 
 CFLAGS += -O3 -std=gnu99 $(fpic) $(GIIBII_DEFINES)
