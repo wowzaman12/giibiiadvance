@@ -29,35 +29,61 @@ void retro_set_audio_sample_batch(retro_audio_sample_batch_t cb) { audio_batch_c
 void retro_set_input_poll(retro_input_poll_t cb) { input_poll_cb = cb; }
 void retro_set_input_state(retro_input_state_t cb) { input_state_cb = cb; }
 
-struct bind_conv
+void retro_init(void)
 {
-	int retro;
-	//int gba;
 }
 
-static struct bind_conv binds[] = {
-/*	{ RETRO_DEVICE_ID_JOYPAD_B },
-	{ RETRO_DEVICE_ID_JOYPAD_A },
-	{ RETRO_DEVICE_ID_JOYPAD_START },
-	{ RETRO_DEVICE_ID_JOYPAD_L },
-	{ RETRO_DEVICE_ID_JOYPAD_R },
-	{ RETRO_DEVICE_ID_JOYPAD_UP },
-	{ RETRO_DEVICE_ID_JOYPAD_DOWN },
-	{ RETRO_DEVICE_ID_JOYPAD_LEFT },
-	{ RETRO_DEVICE_ID_JOYPAD_RIGHT },
-	{ RETRO_DEVICE_ID_JOYPAD_SELECT }, */
-};
 
+void retro_deinit(void)
+{}
+unsigned retro_api_version(void)
+{
+	return RETRO_API_VERSION;
+}
+
+void retro_set_controller_port_device(unsigned port, unsigned device)
+{
+	(void)port;
+	(void)device;
+}
 void retro_get_system_info(struct retro_system_info *info)
 {
-/*   info->library_name = "Giibii Advance";
+   info->library_name = "Giibii Advance";
    info->library_version = "v1.0.0";
    info->valid_extensions = "gba|bin|agp";
    info->block_extract = false;
-   info->need_fullpath = true; */
+   info->need_fullpath = true;
 }
 
-static bool LoadFile(char * filename)
+void retro_set_audio_sample(retro_audio_sample_t cb)
+{
+	audio_cb = cb;
+}
+
+void retro_set_audio_sample_batch(retro_audio_sample_batch_t cb)
+{
+	audio_batch_cb = cb;
+}
+
+void retro_set_input_poll(retro_input_poll_t cb)
+{
+	input_poll_cb = cb;
+}
+
+void retro_set_input_state(retro_input_state_t cb)
+{
+	input_state_cb = cb;
+}
+
+void retro_set_video_refresh(retro_video_refresh_t cb)
+{
+	video_cb = cb;
+}
+
+void retro_reset(void)
+{}
+
+void retro_run(void)
 {
 	
 }
@@ -67,3 +93,48 @@ bool retro_load_game(const struct retro_game_info *info)
 	
 }
 
+void retro_unload_game(void)
+{
+	
+}
+
+size_t retro_serialize_size(void)
+{
+	return 0;
+}
+
+bool retro_serialize(void *data, size_t size)
+{
+	(void)data;
+	(void)size;
+	return false;
+}
+
+bool retro_unserialize(const void *data, size_t size)
+{
+	(void)data;
+	(void)size;
+	return false;
+}
+
+void *retro_get_memory_data(unsigned id)
+{
+	(void)id;
+	return NULL;
+}
+
+size_t retro_get_memory_size(unsigned id)
+{
+	(void)id;
+	return 0;
+}
+
+void retro_cheat_reset(void)
+{}
+
+void retro_cheat_set(unsigned index, bool enabled, const char *code)
+{
+	(void)index;
+	(void)enabled;
+	(void)code;
+}
