@@ -8,6 +8,11 @@
 #include "../../gba_core/video.h"
 #include "../../gba_core/memory.h"
 #include "../../gba_core/sound.h"
+#include "../../gba_core/dma.h"
+#include "../../gba_core/disassembler.h"
+#include "../../gba_core/rom.h"
+#include "../../gba_core/save.h"
+#include "../../gba_core/timers.h"
 
 unsigned retro_api_version(void) { return RETRO_API_VERSION; }
 
