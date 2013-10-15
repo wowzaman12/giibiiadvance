@@ -132,7 +132,6 @@ static void GLWindow_CreateMenu(HWND hWnd)
     AppendMenu(hMenuDebug, MF_STRING, CM_MAPVIEWER, "M&ap Viewer");
     AppendMenu(hMenuDebug, MF_STRING, CM_SPRVIEWER, "&Sprite Viewer");
     AppendMenu(hMenuDebug, MF_STRING, CM_PALVIEWER, "&Palette Viewer");
-    AppendMenu(hMenuDebug, MF_SEPARATOR, 0, NULL);
 
     HMENU hMenuHelp = CreateMenu();
     AppendMenu(hMenuHelp, MF_STRING, CM_README, "&Readme\bF1");
