@@ -115,7 +115,7 @@ get_reg_str (const char *sub, const char *name, char *out, DWORD len)
 
         return FALSE;
 }
-#endif
+
 char *
 get_xdir (void)
 {
@@ -163,6 +163,7 @@ void Config_Save(void)
     fprintf(ini_file,"\r\n");
     fclose(ini_file);
 
+#endif
 /*
     fprintf(ini_file,"[Controls]\r\n");
     int player, key;
