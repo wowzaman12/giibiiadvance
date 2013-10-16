@@ -23,6 +23,7 @@
 
 #include "config.h"
 #include "main.h"
+#include "util.h"
 #include "windows/gui_main.h"
 
 t_config EmulatorConfig = { //Default options...
@@ -115,21 +116,32 @@ get_reg_str (const char *sub, const char *name, char *out, DWORD len)
         return FALSE;
 }
 #endif
+char *
+get_xdir (void)
+{
+    char *xdir = NULL;      /* utf-8 encoding */
+        if (!xdir)
+        {
+            char out[256];
+            if (portable_mode () || !get_reg_str ("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders", "AppData", out, sizeof (out)))
+            {
+                xdir = strdup (".\\");
+            }
+            else
+            {
+                xdir = printf ("%s\\" "giibiiadvance", out);
+            }
+        }
+}
 
 void Config_Save(void)
 {
-#ifdef WIN32
-/*    char out[256];
-    if get_reg_str ("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders", "AppData", out, sizeof (out))
-    {
 
-    } */
-
-#endif
-    char path[MAXPATHLEN];
-    if(GetRunningFolder()) sprintf(path,"%s/GiiBiiAdvance.ini",GetRunningFolder());
-    else strcpy(path,"GiiBiiAdvance.ini");
-    FILE * ini_file = fopen(path,"wb");
+    //char path[MAXPATHLEN];
+    //if(GetRunningFolder()) sprintf(path,"%s/GiiBiiAdvance.ini",GetRunningFolder());
+    //else strcpy(path,"GiiBiiAdvance.ini");
+    strcpy(get_xdir(),"GiiBiiAdvance.ini");
+    FILE * ini_file = fopen(get_xdir(),"wb");
     if(ini_file == NULL) return;
     fprintf(ini_file,"[General]\r\n");
     fprintf(ini_file,CFG_DB_MSG_ENABLE "=%s\r\n",EmulatorConfig.debug_msg_enable?"true":"false");
@@ -149,6 +161,7 @@ void Config_Save(void)
     fprintf(ini_file,CFG_SND_VOLUME "=#%02X\r\n",volume);
     fprintf(ini_file,CFG_SND_MUTE "=%s\r\n",EmulatorConfig.snd_mute?"true":"false");
     fprintf(ini_file,"\r\n");
+    fclose(ini_file);
 
 /*
     fprintf(ini_file,"[Controls]\r\n");
@@ -165,18 +178,18 @@ void Config_Save(void)
         fprintf(ini_file,"SpeedUp=\r\n");
     fprintf(ini_file,"\r\n");
 */
-    fclose(ini_file);
+
 }
 
 void Config_Load(void)
 {
 
-    char path[MAXPATHLEN];
-    if(GetRunningFolder()) sprintf(path,"%s/GiiBiiAdvance.ini",GetRunningFolder());
-    else strcpy(path,"GiiBiiAdvance.ini");
-
+    //char path[MAXPATHLEN];
+    //if(GetRunningFolder()) sprintf(path,"%s/GiiBiiAdvance.ini",GetRunningFolder());
+    //else strcpy(path,"GiiBiiAdvance.ini");
+    strcpy(get_xdir(),"GiiBiiAdvance.ini");
     char * ini;
-    FileLoad_NoError(path,(void*)&ini,NULL);
+    FileLoad_NoError(get_xdir(),(void*)&ini,NULL);
     if(ini == NULL) return;
 
     char * tmp = strstr(ini,CFG_DB_MSG_ENABLE);
