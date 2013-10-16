@@ -88,15 +88,49 @@ char * hwtype[] = { "Auto", "GBA" };
 // "true" - "false"
 
 //---------------------------------------------------------------------
+#ifdef WIN32
+
+#include <windows.h>
+
+boolean
+get_reg_str (const char *sub, const char *name, char *out, DWORD len)
+{
+        HKEY hKey;
+        DWORD t;
+
+        if (RegOpenKeyEx (HKEY_CURRENT_USER, sub, 0, KEY_READ, &hKey) ==
+                        ERROR_SUCCESS)
+        {
+                if (RegQueryValueEx (hKey, name, NULL, &t, out, &len) != ERROR_SUCCESS ||
+                         t != REG_SZ)
+                {
+                        RegCloseKey (hKey);
+                        return FALSE;
+                }
+                out[len-1] = 0;
+                RegCloseKey (hKey);
+                return TRUE;
+        }
+
+        return FALSE;
+}
+#endif
 
 void Config_Save(void)
 {
+#ifdef WIN32
+/*    char out[256];
+    if get_reg_str ("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders", "AppData", out, sizeof (out))
+    {
+
+    } */
+
+#endif
     char path[MAXPATHLEN];
     if(GetRunningFolder()) sprintf(path,"%s/GiiBiiAdvance.ini",GetRunningFolder());
     else strcpy(path,"GiiBiiAdvance.ini");
     FILE * ini_file = fopen(path,"wb");
     if(ini_file == NULL) return;
-
     fprintf(ini_file,"[General]\r\n");
     fprintf(ini_file,CFG_DB_MSG_ENABLE "=%s\r\n",EmulatorConfig.debug_msg_enable?"true":"false");
     fprintf(ini_file,CFG_SCREEN_SIZE "=%d\r\n",EmulatorConfig.screen_size);

@@ -24,7 +24,7 @@ else ifeq ($(platform), osx)
    SHARED := -dynamiclib
 else
    TARGET := $(TARGET_NAME)_libretro.dll
-   LDFLAGS += -Wl,-no-undefined -Wl,--version-script=link.T
+   LDFLAGS += -Wl,-no-undefined -Wl,--version-script=link.T -Wl,--unresolved-symbols=ignore-in-shared-libs
    CC = gcc
    SHARED := -shared -static-libgcc -static-libstdc++ -ffast-math -fomit-frame-pointer
 endif
@@ -48,7 +48,7 @@ INCDIRS := -I$(GIIBII_DIR)
 LIBS :=
 
 $(TARGET): $(OBJS)
-	$(CXX) -o $@ $(SHARED) $(OBJS) $(LDFLAGS) $(LIBS)
+	$(CC) -o $@ $(SHARED) $(OBJS) $(LDFLAGS) $(LIBS)
 
 %.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS) $(INCDIRS)

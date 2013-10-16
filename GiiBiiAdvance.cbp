@@ -44,6 +44,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-DNO_VIZ" />
+			<Add option="-DWIN32" />
 		</Compiler>
 		<Linker>
 			<Add library="gdi32" />

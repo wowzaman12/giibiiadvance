@@ -42,27 +42,5 @@ extern t_config EmulatorConfig;
 
 void Config_Save(void);
 void Config_Load(void);
-/*
-typedef enum {
-    P_KEY_A,
-    P_KEY_B,
-    P_KEY_START,
-    P_KEY_SELECT,
-    P_KEY_RIGHT,
-    P_KEY_LEFT,
-    P_KEY_UP,
-    P_KEY_DOWN,
 
-    P_NUM_KEYS,
-
-    P_KEY_SPEEDUP
-
-    } _key_control_enum_;
-*/
-/*
-extern const char * GBKeyNames[P_NUM_KEYS];
-
-inline void Config_Controls_Set_Key(int player, _key_control_enum_ keyindex, SDLKey keysym);
-inline SDLKey Config_Controls_Get_Key(int player, _key_control_enum_ keyindex);
-*/
 #endif //__CONFIG_H__
