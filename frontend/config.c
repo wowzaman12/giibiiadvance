@@ -138,7 +138,7 @@ void Config_Save(void)
 {
 
     //char path[MAXPATHLEN];
-    //if(GetRunningFolder()) sprintf(path,"%s/GiiBiiAdvance.ini",GetRunningFolder());
+    if(GetRunningFolder()) sprintf(path,"%s/GiiBiiAdvance.ini",GetRunningFolder());
     //else strcpy(path,"GiiBiiAdvance.ini");
     strcpy(get_xdir(),"GiiBiiAdvance.ini");
     FILE * ini_file = fopen(get_xdir(),"wb");
