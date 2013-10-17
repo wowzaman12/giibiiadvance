@@ -22,7 +22,7 @@ SetCompressor lzma
 ; Welcome page
 !insertmacro MUI_PAGE_WELCOME
 ; License page
-!insertmacro MUI_PAGE_LICENSE "..\..\gpl-3.0.txt"
+!insertmacro MUI_PAGE_LICENSE ".\LICENSE"
 ; Directory page
 !insertmacro MUI_PAGE_DIRECTORY
 ; Instfiles page
@@ -58,6 +58,7 @@ Section "MainSection" SEC01
   CreateShortCut "$DESKTOP\GiiBii Advance.lnk" "$INSTDIR\GiiBiiAdvance.exe"
   File "..\bin\libpng16-16.dll"
   File "..\bin\zlib.dll"
+  File ".\LICENSE"
   File "..\..\..\..\..\mingw32\bin\libgcc_s_sjlj-1.dll"
   File "..\..\..\..\..\mingw32\bin\libwinpthread-1.dll"
 SectionEnd
@@ -98,6 +99,7 @@ Section Uninstall
   Delete "$INSTDIR\zlib.dll"
   Delete "$INSTDIR\libpng16-16.dll"
   Delete "$INSTDIR\GiiBiiAdvance.exe"
+  Delete "$INSTDIR\LICENSE"
 
   Delete "$SMPROGRAMS\GiiBiiAdvance\Uninstall.lnk"
   Delete "$SMPROGRAMS\GiiBiiAdvance\Website.lnk"
