@@ -24,7 +24,9 @@
 #include "config.h"
 #include "main.h"
 #include "util.h"
+#ifdef WIN32
 #include "windows/gui_main.h"
+#endif
 
 t_config EmulatorConfig = { //Default options...
     0, //debug_msg_enable
@@ -137,11 +139,11 @@ get_xdir (void)
 void Config_Save(void)
 {
 
-    //char path[MAXPATHLEN];
+    char path[MAXPATHLEN];
     if(GetRunningFolder()) sprintf(path,"%s/GiiBiiAdvance.ini",GetRunningFolder());
-    //else strcpy(path,"GiiBiiAdvance.ini");
-    strcpy(get_xdir(),"GiiBiiAdvance.ini");
-    FILE * ini_file = fopen(get_xdir(),"wb");
+    else strcpy(path,"GiiBiiAdvance.ini");
+    strcpy(path,"GiiBiiAdvance.ini");
+    FILE * ini_file = fopen(path,"wb");
     if(ini_file == NULL) return;
     fprintf(ini_file,"[General]\r\n");
     fprintf(ini_file,CFG_DB_MSG_ENABLE "=%s\r\n",EmulatorConfig.debug_msg_enable?"true":"false");
@@ -163,7 +165,7 @@ void Config_Save(void)
     fprintf(ini_file,"\r\n");
     fclose(ini_file);
 
-#endif
+
 /*
     fprintf(ini_file,"[Controls]\r\n");
     int player, key;
@@ -181,16 +183,16 @@ void Config_Save(void)
 */
 
 }
+#endif
 
 void Config_Load(void)
 {
-
-    //char path[MAXPATHLEN];
-    //if(GetRunningFolder()) sprintf(path,"%s/GiiBiiAdvance.ini",GetRunningFolder());
-    //else strcpy(path,"GiiBiiAdvance.ini");
-    strcpy(get_xdir(),"GiiBiiAdvance.ini");
+    char path[MAXPATHLEN];
+    if(GetRunningFolder()) sprintf(path,"%s/GiiBiiAdvance.ini",GetRunningFolder());
+    else strcpy(path,"GiiBiiAdvance.ini");
+    strcpy(path,"GiiBiiAdvance.ini");
     char * ini;
-    FileLoad_NoError(get_xdir(),(void*)&ini,NULL);
+    FileLoad_NoError(path,(void*)&ini,NULL);
     if(ini == NULL) return;
 
     char * tmp = strstr(ini,CFG_DB_MSG_ENABLE);

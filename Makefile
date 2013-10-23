@@ -24,7 +24,7 @@ else ifeq ($(platform), osx)
 else
    TARGET := $(TARGET_NAME)
    LDFLAGS += -Wl,-no-undefined
-   CC = gcc
+   CC = i686-w64-mingw32-gcc
    SHARED := -shared -static-libgcc -static-libstdc++ -ffast-math -fomit-frame-pointer
 endif
 
